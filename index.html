@@ -5,114 +5,196 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Forge Operations</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #ffffff; --bg2: #f5f5f3; --bg3: #efefec;
-    --text: #1a1a18; --text2: #6b6b66; --text3: #9b9b95;
-    --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
-    --blue-bg: #E6F1FB; --blue: #185FA5; --blue-dark: #0C447C;
-    --amber-bg: #FAEEDA; --amber: #854F0B;
-    --green-bg: #EAF3DE; --green: #3B6D11;
-    --purple-bg: #EEEDFE; --purple: #3C3489;
-    --red: #E24B4A; --yellow: #EF9F27; --pmf-green: #639922;
-    --radius: 8px; --radius-lg: 12px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1a; --bg2: #242422; --bg3: #2c2c2a;
-      --text: #f0efe8; --text2: #a0a09a; --text3: #686862;
-      --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.18);
-      --blue-bg: #0c2a42; --blue: #85B7EB; --blue-dark: #B5D4F4;
-      --amber-bg: #3a2800; --amber: #FAC775;
-      --green-bg: #1a2e0a; --green: #C0DD97;
-      --purple-bg: #1e1a40; --purple: #AFA9EC;
-    }
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 1.5rem; font-size: 14px; line-height: 1.6; }
-  .tab-bar { display: flex; gap: 2px; margin-bottom: 1.5rem; border-bottom: 0.5px solid var(--border); }
-  .tab { padding: 8px 14px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--text2); border: none; border-bottom: 2px solid transparent; background: none; margin-bottom: -1px; }
-  .tab.active { color: var(--text); border-bottom-color: #378ADD; }
-  .tab:hover { color: var(--text); }
-  .panel { display: none; } .panel.active { display: block; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#ffffff;--bg2:#f5f5f3;--bg3:#efefec;
+  --text:#1a1a18;--text2:#6b6b66;--text3:#9b9b95;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);
+  --blue-bg:#E6F1FB;--blue:#185FA5;--blue-dark:#0C447C;
+  --amber-bg:#FAEEDA;--amber:#854F0B;
+  --green-bg:#EAF3DE;--green:#3B6D11;
+  --purple-bg:#EEEDFE;--purple:#3C3489;
+  --red:#E24B4A;--yellow:#EF9F27;--pmf-green:#639922;
+  --radius:8px;--radius-lg:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1c1c1a;--bg2:#242422;--bg3:#2c2c2a;
+  --text:#f0efe8;--text2:#a0a09a;--text3:#686862;
+  --border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.18);
+  --blue-bg:#0c2a42;--blue:#85B7EB;--blue-dark:#B5D4F4;
+  --amber-bg:#3a2800;--amber:#FAC775;
+  --green-bg:#1a2e0a;--green:#C0DD97;
+  --purple-bg:#1e1a40;--purple:#AFA9EC;
+}}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);padding:1.25rem;font-size:14px;line-height:1.6;}
+.tab-bar{display:flex;gap:2px;margin-bottom:1.5rem;border-bottom:0.5px solid var(--border);}
+.tab{padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text2);border:none;border-bottom:2px solid transparent;background:none;margin-bottom:-1px;}
+.tab.active{color:var(--text);border-bottom-color:#378ADD;}
+.tab:hover{color:var(--text);}
+.panel{display:none;}.panel.active{display:block;}
+.loading{text-align:center;padding:2rem;color:var(--text2);font-size:13px;}
+.err{background:#fff0f0;border:0.5px solid #fbb;border-radius:var(--radius);padding:0.75rem 1rem;font-size:12px;color:#900;margin-bottom:1rem;}
 
-  /* Mission */
-  .mission-box { background: var(--bg2); border-radius: var(--radius-lg); border: 0.5px solid var(--border); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
-  .section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text2); margin-bottom: 0.6rem; }
-  .mission-text { font-size: 15px; color: var(--text); line-height: 1.75; }
-  .stat-bar { background: var(--bg2); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 0.75rem 1rem; display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
-  .stat { display: flex; flex-direction: column; gap: 2px; }
-  .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text2); }
-  .stat-val { font-size: 20px; font-weight: 500; }
-  .sv-arr { color: var(--blue); } .sv-pipe { color: var(--amber); } .sv-n { color: var(--pmf-green); }
-  .three-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .three-card { background: var(--bg2); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 0.9rem; }
-  .three-card-title { font-size: 12px; font-weight: 500; margin-bottom: 4px; }
-  .three-card-body { font-size: 11px; color: var(--text2); line-height: 1.6; }
+/* Mission */
+.mission-wrap{position:relative;}
+.mission-box{background:var(--bg2);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
+.section-label{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:.5rem;}
+.mission-text{font-size:15px;color:var(--text);line-height:1.75;min-height:2em;}
+.mission-edit{width:100%;font-size:15px;line-height:1.75;background:transparent;border:none;color:var(--text);resize:none;outline:none;font-family:inherit;min-height:80px;}
+.edit-btn{font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;margin-top:6px;}
+.edit-btn:hover{color:var(--text);border-color:var(--text2);}
+.save-btn{font-size:11px;padding:3px 10px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;margin-top:6px;margin-left:4px;}
+.stat-bar{background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:.75rem 1rem;display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem;}
+.stat{display:flex;flex-direction:column;gap:2px;}
+.stat-label{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);}
+.stat-val{font-size:20px;font-weight:500;}
+.sv-arr{color:var(--blue);}.sv-pipe{color:var(--amber);}.sv-n{color:var(--pmf-green);}
+.three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.three-card{background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:.9rem;}
+.three-card-title{font-size:12px;font-weight:500;margin-bottom:4px;}
+.three-card-body{font-size:11px;color:var(--text2);line-height:1.6;}
 
-  /* Calendar */
-  .cal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
-  .cal-month { background: var(--bg); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 10px; }
-  .cal-month.now { border-color: #378ADD; }
-  .cal-month-label { font-size: 11px; font-weight: 500; color: var(--text2); margin-bottom: 6px; }
-  .cal-month.now .cal-month-label { color: var(--blue); }
-  .cal-event { font-size: 10px; padding: 3px 7px; border-radius: 4px; margin-bottom: 3px; line-height: 1.4; }
-  .ev-forge { background: var(--blue-bg); color: var(--blue-dark); }
-  .ev-review { background: var(--green-bg); color: var(--green); }
-  .ev-onboard { background: var(--amber-bg); color: var(--amber); }
-  .ev-plan { background: var(--purple-bg); color: var(--purple); }
-  .cal-legend { display: flex; gap: 12px; flex-wrap: wrap; }
-  .li { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--text2); }
-  .ld { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+/* Calendar */
+.cal-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;}
+.add-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;}
+.cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;}
+.cal-month{background:var(--bg);border-radius:var(--radius);border:0.5px solid var(--border);padding:10px;}
+.cal-month.now{border-color:#378ADD;}
+.cal-month-label{font-size:11px;font-weight:500;color:var(--text2);margin-bottom:6px;}
+.cal-month.now .cal-month-label{color:var(--blue);}
+.cal-event{font-size:10px;padding:3px 7px;border-radius:4px;margin-bottom:3px;line-height:1.4;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:4px;}
+.cal-event:hover .ev-del{opacity:1;}
+.ev-del{opacity:0;font-size:9px;cursor:pointer;flex-shrink:0;color:inherit;}
+.ev-Planning,.ev-Review{background:var(--green-bg);color:var(--green);}
+.ev-Sprint\ 1,.ev-Sprint\ 2,.ev-Sprint\ 3,.ev-Sprint\ 4,.ev-Sprint\ 5,.ev-Sprint\ 6,.ev-Sprint\ 7{background:var(--blue-bg);color:var(--blue-dark);}
+.ev-onboard{background:var(--amber-bg);color:var(--amber);}
+.status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;flex-shrink:0;}
+.s-Upcoming{background:var(--text3);}
+.s-In\ Progress{background:var(--yellow);}
+.s-Complete{background:var(--pmf-green);}
+.cal-legend{display:flex;gap:12px;flex-wrap:wrap;}
+.li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
+.ld{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
 
-  /* Segments */
-  .seg-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; }
-  .seg-card { border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1.25rem; background: var(--bg); }
-  .seg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid var(--border); flex-wrap: wrap; }
-  .seg-title { font-size: 14px; font-weight: 500; }
-  .seg-sub { font-size: 11px; color: var(--text2); margin-top: 2px; }
-  .money-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-  .mc-label { font-size: 9px; color: var(--text2); }
-  .mchip { font-size: 10px; padding: 3px 9px; border-radius: 20px; font-weight: 500; }
-  .mc-arr { background: var(--blue-bg); color: var(--blue); }
-  .mc-pipe { background: var(--amber-bg); color: var(--amber); }
-  .mc-total { background: var(--green-bg); color: var(--green); }
-  .accounts { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 0.9rem; }
-  .apill { font-size: 10px; padding: 3px 9px; border-radius: 20px; border: 0.5px solid var(--border2); color: var(--text); background: var(--bg2); display: flex; align-items: center; gap: 4px; }
-  .apill.arr { background: var(--blue-bg); border-color: #85B7EB; color: var(--blue-dark); font-weight: 500; }
-  .apill-amt { font-size: 9px; opacity: 0.75; }
-  .wf-table { width: 100%; border-collapse: collapse; font-size: 11px; }
-  .wf-table th { font-size: 9px; font-weight: 500; color: var(--text2); text-align: left; padding: 0 7px 5px; letter-spacing: 0.05em; text-transform: uppercase; }
-  .wf-table td { padding: 6px 7px; border-top: 0.5px solid var(--border); vertical-align: middle; }
-  .wf-table tr:hover td { background: var(--bg2); }
-  .wf-name { font-weight: 500; font-size: 11px; }
-  .pmf-wrap { display: flex; align-items: center; gap: 6px; }
-  .pmf-bar { height: 7px; border-radius: 4px; flex: 1; background: var(--bg3); overflow: hidden; min-width: 40px; }
-  .pmf-fill { height: 100%; border-radius: 4px; transition: width 0.25s; }
-  .pmf-pct { font-size: 10px; font-weight: 500; min-width: 28px; text-align: right; }
-  .pmf-in { width: 42px; font-size: 10px; padding: 2px 4px; border-radius: 4px; border: 0.5px solid var(--border2); background: var(--bg); color: var(--text); text-align: center; }
-  .pmf-in:focus { outline: none; border-color: #378ADD; }
-  .tag-sel { font-size: 10px; padding: 2px 5px; border-radius: 6px; border: 0.5px solid var(--border2); background: var(--bg); color: var(--text); }
-  .cr-in { font-size: 10px; padding: 2px 6px; border-radius: 6px; border: 0.5px solid var(--border2); background: var(--bg); color: var(--text); width: 100%; }
-  .cr-in:focus, .tag-sel:focus { outline: none; border-color: #378ADD; }
-  @media (max-width: 600px) {
-    .three-grid { grid-template-columns: 1fr; }
-    .cal-grid { grid-template-columns: repeat(2, 1fr); }
-    .stat-bar { gap: 1rem; }
-  }
+/* Modal */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;}
+.modal-backdrop.open{display:flex;}
+.modal{background:var(--bg);border-radius:var(--radius-lg);padding:1.5rem;width:420px;max-width:95vw;border:0.5px solid var(--border2);}
+.modal h3{font-size:14px;font-weight:500;margin-bottom:1rem;}
+.form-row{margin-bottom:.75rem;}
+.form-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:3px;display:block;}
+.form-input{width:100%;font-size:12px;padding:6px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;}
+.form-input:focus{outline:none;border-color:#378ADD;}
+.form-select{width:100%;font-size:12px;padding:6px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem;}
+.btn-cancel{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;}
+.btn-save{font-size:12px;padding:5px 14px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;}
+
+/* Achievements */
+.ach-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;}
+.ach-card{border:0.5px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;margin-bottom:.75rem;background:var(--bg);}
+.ach-card:hover{background:var(--bg2);}
+.ach-head{display:flex;align-items:baseline;gap:8px;margin-bottom:.4rem;flex-wrap:wrap;}
+.ach-title{font-size:13px;font-weight:500;}
+.ach-badge{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;white-space:nowrap;}
+.vt-green{background:var(--green-bg);color:var(--green);}
+.vt-blue{background:var(--blue-bg);color:var(--blue);}
+.vt-purple{background:var(--purple-bg);color:var(--purple);}
+.vt-orange{background:var(--amber-bg);color:var(--amber);}
+.vt-yellow{background:#FEF9C3;color:#713F12;}
+.ach-meta{font-size:10px;color:var(--text2);margin-bottom:.5rem;}
+.ach-assessment{font-size:11px;color:var(--text);line-height:1.6;}
+.empty-state{text-align:center;padding:2rem;color:var(--text2);font-size:12px;}
+
+/* Segments */
+.seg-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1rem;}
+.seg-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;background:var(--bg);}
+.seg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:.75rem;padding-bottom:.75rem;border-bottom:0.5px solid var(--border);flex-wrap:wrap;}
+.seg-title{font-size:14px;font-weight:500;}
+.seg-sub{font-size:11px;color:var(--text2);margin-top:2px;}
+.money-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.mc-label{font-size:9px;color:var(--text2);}
+.mchip{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:500;}
+.mc-arr{background:var(--blue-bg);color:var(--blue);}
+.mc-pipe{background:var(--amber-bg);color:var(--amber);}
+.mc-total{background:var(--green-bg);color:var(--green);}
+.accounts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.9rem;}
+.apill{font-size:10px;padding:3px 9px;border-radius:20px;border:0.5px solid var(--border2);color:var(--text);background:var(--bg2);display:flex;align-items:center;gap:4px;}
+.apill.arr{background:var(--blue-bg);border-color:#85B7EB;color:var(--blue-dark);font-weight:500;}
+.apill-amt{font-size:9px;opacity:.75;}
+.wf-table{width:100%;border-collapse:collapse;font-size:11px;}
+.wf-table th{font-size:9px;font-weight:500;color:var(--text2);text-align:left;padding:0 7px 5px;letter-spacing:.05em;text-transform:uppercase;}
+.wf-table td{padding:6px 7px;border-top:0.5px solid var(--border);vertical-align:middle;}
+.wf-table tr:hover td{background:var(--bg2);}
+.wf-name{font-weight:500;font-size:11px;}
+.pmf-wrap{display:flex;align-items:center;gap:6px;}
+.pmf-bar{height:7px;border-radius:4px;flex:1;background:var(--bg3);overflow:hidden;min-width:40px;}
+.pmf-fill{height:100%;border-radius:4px;transition:width .25s;}
+.pmf-pct{font-size:10px;font-weight:500;min-width:28px;text-align:right;}
+.pmf-in{width:42px;font-size:10px;padding:2px 4px;border-radius:4px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);text-align:center;}
+.pmf-in:focus{outline:none;border-color:#378ADD;}
+.tag-sel,.cr-in{font-size:10px;padding:2px 5px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);}
+.cr-in{width:100%;}
+.cr-in:focus,.tag-sel:focus{outline:none;border-color:#378ADD;}
+@media(max-width:600px){.three-grid,.cal-grid{grid-template-columns:1fr;}.stat-bar{gap:1rem;}}
 </style>
 </head>
 <body>
 
+<!-- IMPORTANT: Replace YOUR_NOTION_API_KEY below with your actual Notion integration token -->
+<script>
+const NOTION_KEY = "YOUR_NOTION_API_KEY";
+const MILESTONES_DB = "626536f0-a492-49b2-9bc4-e9aa564fa36a";
+const ACHIEVEMENTS_DB = "02205e19-e9e0-482e-8939-5cfa7e11a0c2";
+const PROXY = "https://notion-proxy.YOUR-USERNAME.workers.dev"; // Replace with your Cloudflare Worker URL
+
+// Because browsers block direct Notion API calls (CORS), you need a small proxy.
+// See the README section at the bottom of this file for setup instructions.
+
+async function notionGet(endpoint) {
+  const r = await fetch(`${PROXY}/v1/${endpoint}`, {
+    headers: {"Authorization": `Bearer ${NOTION_KEY}`, "Notion-Version": "2022-06-28"}
+  });
+  return r.json();
+}
+
+async function notionPost(endpoint, body) {
+  const r = await fetch(`${PROXY}/v1/${endpoint}`, {
+    method: "POST",
+    headers: {"Authorization": `Bearer ${NOTION_KEY}`, "Notion-Version": "2022-06-28", "Content-Type": "application/json"},
+    body: JSON.stringify(body)
+  });
+  return r.json();
+}
+
+async function notionPatch(endpoint, body) {
+  const r = await fetch(`${PROXY}/v1/${endpoint}`, {
+    method: "PATCH",
+    headers: {"Authorization": `Bearer ${NOTION_KEY}`, "Notion-Version": "2022-06-28", "Content-Type": "application/json"},
+    body: JSON.stringify(body)
+  });
+  return r.json();
+}
+</script>
+
 <div class="tab-bar">
   <button class="tab active" onclick="showTab('mission',this)">Mission</button>
   <button class="tab" onclick="showTab('calendar',this)">Calendar</button>
+  <button class="tab" onclick="showTab('achievements',this)">Achievements</button>
   <button class="tab" onclick="showTab('segments',this)">Customer segments</button>
 </div>
 
+<!-- MISSION -->
 <div id="tab-mission" class="panel active">
   <div class="mission-box">
     <div class="section-label">Mission</div>
-    <div class="mission-text">The Forge exists to make sure every new customer reaches value fast — and every existing customer stays. We use our own operators to find and fix the friction before commands do.</div>
+    <div id="mission-display" class="mission-text">The Forge exists to make sure every new customer reaches value fast — and every existing customer stays. We use our own operators to find and fix the friction before commands do.</div>
+    <textarea id="mission-edit" class="mission-edit" style="display:none;"></textarea>
+    <div>
+      <button class="edit-btn" id="mission-edit-btn" onclick="startMissionEdit()">Edit</button>
+      <button class="save-btn" id="mission-save-btn" style="display:none;" onclick="saveMission()">Save to Notion</button>
+      <button class="btn-cancel" id="mission-cancel-btn" style="display:none;" onclick="cancelMissionEdit()">Cancel</button>
+    </div>
   </div>
   <div class="stat-bar">
     <div class="stat"><span class="stat-label">ARR under contract</span><span class="stat-val sv-arr">$38.7M</span></div>
@@ -120,7 +202,7 @@
     <div class="stat"><span class="stat-label">Segments</span><span class="stat-val sv-n">6</span></div>
     <div class="stat"><span class="stat-label">Accounts</span><span class="stat-val sv-n">50+</span></div>
   </div>
-  <div class="section-label" style="margin-bottom:0.75rem;">Three efforts, one goal</div>
+  <div class="section-label" style="margin-bottom:.75rem;">Three efforts, one goal</div>
   <div class="three-grid">
     <div class="three-card"><div class="three-card-title">Smartbook Catalogue</div><div class="three-card-body">Curated library of validated workflows and templates. New commands stop starting from zero.</div></div>
     <div class="three-card"><div class="three-card-title">Workflow Forge</div><div class="three-card-body">Internal sprint team runs real command workflows end-to-end, finds friction, and delivers structured feedback to Product.</div></div>
@@ -128,130 +210,424 @@
   </div>
 </div>
 
+<!-- CALENDAR -->
 <div id="tab-calendar" class="panel">
-  <div class="cal-grid" id="cal"></div>
-  <div class="cal-legend">
-    <div class="li"><div class="ld" style="background:#378ADD;"></div>Forge sprint</div>
-    <div class="li"><div class="ld" style="background:#639922;"></div>Review / release</div>
-    <div class="li"><div class="ld" style="background:#EF9F27;"></div>Onboarding</div>
-    <div class="li"><div class="ld" style="background:#7F77DD;"></div>Planning</div>
+  <div class="cal-toolbar">
+    <span class="section-label" style="margin:0;">2026 Forge sprint calendar</span>
+    <button class="add-btn" onclick="openMilestoneModal()">+ Add milestone</button>
+  </div>
+  <div id="cal-loading" class="loading">Loading milestones from Notion…</div>
+  <div id="cal-grid" class="cal-grid" style="display:none;"></div>
+  <div class="cal-legend" style="margin-top:.5rem;">
+    <div class="li"><div class="ld" style="background:var(--blue);"></div>Sprint</div>
+    <div class="li"><div class="ld" style="background:var(--green);"></div>Review / release</div>
+    <div class="li"><div class="ld" style="background:var(--text3);"></div>Upcoming</div>
+    <div class="li"><div class="ld" style="background:var(--yellow);"></div>In progress</div>
+    <div class="li"><div class="ld" style="background:var(--pmf-green);"></div>Complete</div>
   </div>
 </div>
 
+<!-- ACHIEVEMENTS -->
+<div id="tab-achievements" class="panel">
+  <div class="ach-toolbar">
+    <span class="section-label" style="margin:0;">Forge achievements</span>
+    <button class="add-btn" onclick="openAchievementModal()">+ Log achievement</button>
+  </div>
+  <div id="ach-loading" class="loading">Loading achievements from Notion…</div>
+  <div id="ach-list"></div>
+</div>
+
+<!-- SEGMENTS -->
 <div id="tab-segments" class="panel">
   <div class="seg-legend">
-    <div class="li"><div class="ld" style="background:#E24B4A;"></div>PMF &lt;35%</div>
-    <div class="li"><div class="ld" style="background:#EF9F27;"></div>PMF 35–80%</div>
-    <div class="li"><div class="ld" style="background:#639922;"></div>PMF &gt;80%</div>
-    <div class="li"><div class="ld" style="background:#E6F1FB;border:1px solid #85B7EB;"></div>Under contract</div>
-    <div class="li"><div class="ld" style="background:#f0efe8;border:1px solid #ccc;"></div>Pipeline</div>
+    <div class="li"><div class="ld" style="background:var(--red);"></div>PMF &lt;35%</div>
+    <div class="li"><div class="ld" style="background:var(--yellow);"></div>PMF 35–80%</div>
+    <div class="li"><div class="ld" style="background:var(--pmf-green);"></div>PMF &gt;80%</div>
+    <div class="li"><div class="ld" style="background:var(--blue-bg);border:1px solid #85B7EB;"></div>Under contract</div>
+    <div class="li"><div class="ld" style="background:var(--bg2);border:1px solid var(--border2);"></div>Pipeline</div>
   </div>
   <div id="segments"></div>
 </div>
 
+<!-- MILESTONE MODAL -->
+<div class="modal-backdrop" id="milestone-modal">
+  <div class="modal">
+    <h3 id="milestone-modal-title">Add milestone</h3>
+    <div class="form-row"><label class="form-label">Name</label><input class="form-input" id="ms-name" placeholder="e.g. Smartbook v2 release"></div>
+    <div class="form-row"><label class="form-label">Date</label><input class="form-input" id="ms-date" type="date"></div>
+    <div class="form-row"><label class="form-label">Sprint / category</label>
+      <select class="form-select" id="ms-sprint">
+        <option>Planning</option><option>Sprint 1</option><option>Sprint 2</option><option>Sprint 3</option><option>Sprint 4</option><option>Sprint 5</option><option>Sprint 6</option><option>Sprint 7</option><option>Review</option>
+      </select>
+    </div>
+    <div class="form-row"><label class="form-label">Status</label>
+      <select class="form-select" id="ms-status"><option>Upcoming</option><option>In Progress</option><option>Complete</option></select>
+    </div>
+    <div class="form-row"><label class="form-label">Notes</label><input class="form-input" id="ms-notes" placeholder="Optional notes"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('milestone-modal')">Cancel</button>
+      <button class="btn-save" id="ms-save-btn" onclick="saveMilestone()">Save to Notion</button>
+    </div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENT MODAL -->
+<div class="modal-backdrop" id="achievement-modal">
+  <div class="modal">
+    <h3>Log achievement</h3>
+    <div class="form-row"><label class="form-label">Achievement title</label><input class="form-input" id="ach-name" placeholder="e.g. OPORD workflow validated with JS J3"></div>
+    <div class="form-row"><label class="form-label">Date</label><input class="form-input" id="ach-date" type="date" value="2026-06-07"></div>
+    <div class="form-row"><label class="form-label">Value type</label>
+      <select class="form-select" id="ach-type">
+        <option>Increased Usage</option><option>Workflow Captured</option><option>Account Closed</option><option>Product Fix Shipped</option><option>Onboarding Accelerated</option>
+      </select>
+    </div>
+    <div class="form-row"><label class="form-label">Linked account</label><input class="form-input" id="ach-account" placeholder="e.g. US Joint Staff"></div>
+    <div class="form-row"><label class="form-label">Assessment — what value was achieved?</label>
+      <textarea class="form-input" id="ach-assessment" rows="3" placeholder="Describe the impact: usage increase, workflow quality, deal influence…"></textarea>
+    </div>
+    <div class="form-row"><label class="form-label">Sprint</label>
+      <select class="form-select" id="ach-sprint">
+        <option>General</option><option>Sprint 1</option><option>Sprint 2</option><option>Sprint 3</option><option>Sprint 4</option><option>Sprint 5</option><option>Sprint 6</option><option>Sprint 7</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('achievement-modal')">Cancel</button>
+      <button class="btn-save" onclick="saveAchievement()">Save to Notion</button>
+    </div>
+  </div>
+</div>
+
 <script>
+// ─── TAB NAV ───────────────────────────────────────────
 function showTab(name, btn) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.getElementById('tab-' + name).classList.add('active');
   btn.classList.add('active');
+  if (name === 'calendar' && !calLoaded) loadCalendar();
+  if (name === 'achievements' && !achLoaded) loadAchievements();
 }
 
-const calData = [
-  { m: "Jun 2026", now: true, events: [{ t: "Forge kickoff", c: "ev-plan" }, { t: "Sprint 1: OPORD / WARNO", c: "ev-forge" }] },
-  { m: "Jul 2026", events: [{ t: "Sprint 2: MDMP", c: "ev-forge" }, { t: "Product feedback", c: "ev-review" }] },
-  { m: "Aug 2026", events: [{ t: "Sprint 3: GIE / CPX", c: "ev-forge" }, { t: "Q3 onboarding", c: "ev-onboard" }] },
-  { m: "Sep 2026", events: [{ t: "Sprint 4: BUA", c: "ev-forge" }, { t: "Smartbook v1", c: "ev-review" }] },
-  { m: "Oct 2026", events: [{ t: "Mid-cycle review", c: "ev-review" }, { t: "Sprint 5: JTF", c: "ev-forge" }] },
-  { m: "Nov 2026", events: [{ t: "Sprint 6: SOF / TSOC", c: "ev-forge" }, { t: "Q4 onboarding", c: "ev-onboard" }] },
-  { m: "Dec 2026", events: [{ t: "Sprint 7: Wargame", c: "ev-forge" }, { t: "Year-end review", c: "ev-review" }, { t: "2027 planning", c: "ev-plan" }] }
-];
-
-const cal = document.getElementById("cal");
-calData.forEach(m => {
-  const d = document.createElement("div");
-  d.className = "cal-month" + (m.now ? " now" : "");
-  let h = `<div class="cal-month-label">${m.m}${m.now ? ' <span style="font-size:9px;color:#378ADD;">● now</span>' : ""}</div>`;
-  m.events.forEach(e => { h += `<div class="cal-event ${e.c}">${e.t}</div>`; });
-  d.innerHTML = h; cal.appendChild(d);
-});
-
-const artifactTypes = ["—","OPORD","WARNO","FRAGORD","Concept Sketch","VIZMAT","DSM/HPTL","BUA","CUB","Planning Timeline","Wargame Record","CONPLAN"];
-
-const segs = [
-  { id:"cocom", title:"Operational / COCOM", sub:"Geographic and functional combatant commands · strategic-operational level", arr:"$13.05M",
-    accounts:[{n:"US Joint Staff",a:"$7.5M",c:true},{n:"US Central Command",a:"$2.4M",c:true},{n:"Pacific Air Forces",a:"$0.6M",c:true},{n:"Pacific Fleet",a:"$0.6M",c:true},{n:"Naval Forces Europe",a:"$1.6M",c:true},{n:"603d AOC",a:"$0.35M",c:true},{n:"USTRANSCOM"},{n:"NORTHCOM"},{n:"USEUCOM"},{n:"CBP-OFO"},{n:"USSOCOM"},{n:"USSOUTHCOM"},{n:"USCENTCOM (FoC)"},{n:"NAVEUR AtomEngine"},{n:"PACAF"}],
-    wfs:[{n:"OPORD / WARNO production",p:72},{n:"GIE / CPX planning & execution",p:55},{n:"Battle Update Assessment (BUA)",p:68},{n:"Campaign plan synchronization",p:40}] },
-  { id:"tac", title:"Tactical / Corps & Division", sub:"Army, USMC, and joint HQs below COCOM — Corps, Division, MEF", arr:"$5.0M",
-    accounts:[{n:"III Corps",a:"$2.5M",c:true},{n:"Air Mobility Command",a:"$2.5M",c:true},{n:"V Corps"},{n:"XVIII Airborne Corps"},{n:"USAREUR-AF"},{n:"USARC"},{n:"MARFORPAC renewal"},{n:"US Army Japan (USARJ)"},{n:"APFIT 26"},{n:"7th ATC"},{n:"15 AF"},{n:"USMC SDO Pilot"},{n:"Navy POM 27"}],
-    wfs:[{n:"MDMP execution (Army / Marine)",p:78},{n:"Orders production & approval",p:60},{n:"Battle rhythm management",p:50},{n:"Staff section coordination",p:45}] },
-  { id:"exec", title:"Executive / Policy", sub:"Senior staff, secretariat, policy and strategy shops", arr:"$3.72M",
-    accounts:[{n:"ACC",a:"$3.0M",c:true},{n:"Army University / CASCOM",a:"$0.72M",c:true},{n:"OSW Immediate Office"},{n:"DIA BN HQ"},{n:"NRO"},{n:"DTRA J3/5/8"},{n:"Golden Dome"},{n:"[UK] CSOC Pilot"},{n:"[KSA] Joint Forces Command"},{n:"[KSA] USMTM"},{n:"Samaritan's Purse"},{n:"HIEMA"}],
-    wfs:[{n:"Policy development & coordination",p:40},{n:"Stakeholder review workflow",p:38},{n:"Congressional / senior leader reporting",p:30},{n:"Strategic planning & milestone tracking",p:35}] },
-  { id:"sof", title:"SOF / Special Operations", sub:"Special operations commands, TSOCs, and component commands", arr:"$0.18M",
-    accounts:[{n:"SOFCCC",a:"$0.18M",c:true},{n:"JSOC"},{n:"SOCNORTH"},{n:"SOCEUR"},{n:"SOCCENT"},{n:"SOCAF"},{n:"SOCKOR"},{n:"SOCSOUTH"},{n:"USASOC NCR"},{n:"FBI HRT"}],
-    wfs:[{n:"SOF planning (MCPP / MDMP hybrid)",p:45},{n:"TSOC / theater coordination",p:35},{n:"Mission planning & rehearsal",p:40},{n:"Component command synchronization",p:28}] },
-  { id:"wargame", title:"Wargame / Simulation", sub:"Atom Engine, Battle Road, and wargame-integrated customers", arr:"$19.375M",
-    accounts:[{n:"Battle Road NGC",a:"$17.0M",c:true},{n:"Battle Road IPC",a:"$2.375M",c:true},{n:"NGC MOD AtomEngine Expansion"},{n:"Space Forces-IP"},{n:"IPC J554 FMS Taiwan"},{n:"G-TEAD"}],
-    wfs:[{n:"Wargame execution & record keeping",p:65},{n:"Battle Road / AtomEngine integration",p:70},{n:"Simulation scenario planning",p:55},{n:"After-action review & adjudication",p:50}] },
-  { id:"nato", title:"NATO / Allied / International", sub:"Allied nations, coalition commands, partner militaries", arr:"$0.576M",
-    accounts:[{n:"Australia",a:"$0.576M",c:true},{n:"JFC Naples HQs"},{n:"[NATO] SHAPE"},{n:"[UK] MOD"},{n:"Japan JJOC"},{n:"USFJ"},{n:"[KSA] Saudi Arabia Government"}],
-    wfs:[{n:"Bilateral / coalition planning",p:22},{n:"Theater Security Cooperation (TSC)",p:25},{n:"Partner nation onboarding",p:20},{n:"Information sharing & interoperability",p:18}] }
-];
-
-function pmfColor(v) { return v < 35 ? "#E24B4A" : v <= 80 ? "#EF9F27" : "#639922"; }
-function updatePmf(bid, pid, iid) {
-  const v = Math.min(100, Math.max(0, parseInt(document.getElementById(iid).value) || 0));
-  const c = pmfColor(v);
-  document.getElementById(bid).style.width = v + "%";
-  document.getElementById(bid).style.background = c;
-  document.getElementById(pid).style.color = c;
-  document.getElementById(pid).textContent = v + "%";
+// ─── MISSION EDIT ──────────────────────────────────────
+function startMissionEdit() {
+  const txt = document.getElementById('mission-display').textContent;
+  document.getElementById('mission-edit').value = txt;
+  document.getElementById('mission-display').style.display = 'none';
+  document.getElementById('mission-edit').style.display = 'block';
+  document.getElementById('mission-edit-btn').style.display = 'none';
+  document.getElementById('mission-save-btn').style.display = 'inline';
+  document.getElementById('mission-cancel-btn').style.display = 'inline';
+}
+function cancelMissionEdit() {
+  document.getElementById('mission-display').style.display = 'block';
+  document.getElementById('mission-edit').style.display = 'none';
+  document.getElementById('mission-edit-btn').style.display = 'inline';
+  document.getElementById('mission-save-btn').style.display = 'none';
+  document.getElementById('mission-cancel-btn').style.display = 'none';
+}
+async function saveMission() {
+  const val = document.getElementById('mission-edit').value.trim();
+  document.getElementById('mission-display').textContent = val;
+  cancelMissionEdit();
+  // NOTE: Mission text is stored in the Forge Operations page directly.
+  // To sync to Notion, update the page content via the Notion API or edit it directly in Notion.
+  // Full Notion page write for rich text requires the page block update API.
+  alert('Mission updated locally. To persist, also update the text in your Notion page directly.');
 }
 
-const segEl = document.getElementById("segments");
-const opts = artifactTypes.map(t => `<option>${t}</option>`).join("");
+// ─── CALENDAR ──────────────────────────────────────────
+let calLoaded = false;
+let milestones = [];
+let editingMilestoneId = null;
 
-segs.forEach(s => {
-  const card = document.createElement("div");
-  card.className = "seg-card";
-  const pills = s.accounts.map(a =>
-    `<div class="apill${a.c ? " arr" : ""}"><span>${a.n}</span>${a.a ? `<span class="apill-amt">${a.a}</span>` : ""}</div>`
-  ).join("");
-  const rows = s.wfs.map((w, i) => {
-    const bid = `b-${s.id}-${i}`, pid = `p-${s.id}-${i}`, iid = `i-${s.id}-${i}`;
-    return `<tr>
-      <td class="wf-name">${w.n}</td>
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const CAL_MONTHS = [
+  {label:"Jun 2026", now:true, prefix:"2026-06"},
+  {label:"Jul 2026", prefix:"2026-07"},
+  {label:"Aug 2026", prefix:"2026-08"},
+  {label:"Sep 2026", prefix:"2026-09"},
+  {label:"Oct 2026", prefix:"2026-10"},
+  {label:"Nov 2026", prefix:"2026-11"},
+  {label:"Dec 2026", prefix:"2026-12"},
+];
+
+async function loadCalendar() {
+  try {
+    const data = await notionPost(`databases/${MILESTONES_DB}/query`, {sorts:[{property:"Date",direction:"ascending"}]});
+    milestones = (data.results || []).map(p => ({
+      id: p.id,
+      name: p.properties.Name?.title?.[0]?.plain_text || "",
+      date: p.properties.Date?.date?.start || "",
+      sprint: p.properties.Sprint?.select?.name || "Planning",
+      status: p.properties.Status?.select?.name || "Upcoming",
+      notes: p.properties.Notes?.rich_text?.[0]?.plain_text || ""
+    }));
+    renderCalendar();
+    calLoaded = true;
+  } catch(e) {
+    document.getElementById('cal-loading').innerHTML = `<div class="err">Could not load from Notion. Check your API key and proxy setup.<br><small>${e.message}</small></div>`;
+  }
+}
+
+function renderCalendar() {
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = "";
+  CAL_MONTHS.forEach(m => {
+    const events = milestones.filter(ms => ms.date.startsWith(m.prefix));
+    const div = document.createElement("div");
+    div.className = "cal-month" + (m.now ? " now" : "");
+    let h = `<div class="cal-month-label">${m.label}${m.now ? ' <span style="font-size:9px;color:#378ADD;">● now</span>' : ""}</div>`;
+    events.forEach(ev => {
+      h += `<div class="cal-event ev-${ev.sprint}" onclick="openEditMilestone('${ev.id}')">
+        <span><span class="status-dot s-${ev.status}"></span>${ev.name}</span>
+        <span class="ev-del" onclick="event.stopPropagation();deleteMilestone('${ev.id}')">✕</span>
+      </div>`;
+    });
+    div.innerHTML = h;
+    grid.appendChild(div);
+  });
+  document.getElementById('cal-loading').style.display = 'none';
+  grid.style.display = 'grid';
+}
+
+function openMilestoneModal(prefill) {
+  editingMilestoneId = null;
+  document.getElementById('milestone-modal-title').textContent = 'Add milestone';
+  document.getElementById('ms-name').value = prefill?.name || "";
+  document.getElementById('ms-date').value = prefill?.date || "2026-06-01";
+  document.getElementById('ms-sprint').value = prefill?.sprint || "Planning";
+  document.getElementById('ms-status').value = prefill?.status || "Upcoming";
+  document.getElementById('ms-notes').value = prefill?.notes || "";
+  document.getElementById('milestone-modal').classList.add('open');
+}
+
+function openEditMilestone(id) {
+  const ms = milestones.find(m => m.id === id);
+  if (!ms) return;
+  editingMilestoneId = id;
+  document.getElementById('milestone-modal-title').textContent = 'Edit milestone';
+  document.getElementById('ms-name').value = ms.name;
+  document.getElementById('ms-date').value = ms.date;
+  document.getElementById('ms-sprint').value = ms.sprint;
+  document.getElementById('ms-status').value = ms.status;
+  document.getElementById('ms-notes').value = ms.notes;
+  document.getElementById('milestone-modal').classList.add('open');
+}
+
+async function saveMilestone() {
+  const btn = document.getElementById('ms-save-btn');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  const props = {
+    Name: {title:[{text:{content: document.getElementById('ms-name').value}}]},
+    Date: {date:{start: document.getElementById('ms-date').value}},
+    Sprint: {select:{name: document.getElementById('ms-sprint').value}},
+    Status: {select:{name: document.getElementById('ms-status').value}},
+    Notes: {rich_text:[{text:{content: document.getElementById('ms-notes').value}}]}
+  };
+  try {
+    if (editingMilestoneId) {
+      await notionPatch(`pages/${editingMilestoneId}`, {properties: props});
+    } else {
+      await notionPost('pages', {parent:{database_id: MILESTONES_DB}, properties: props});
+    }
+    closeModal('milestone-modal');
+    calLoaded = false;
+    await loadCalendar();
+  } catch(e) { alert('Save failed: ' + e.message); }
+  btn.textContent = 'Save to Notion'; btn.disabled = false;
+}
+
+async function deleteMilestone(id) {
+  if (!confirm('Delete this milestone?')) return;
+  await notionPatch(`pages/${id}`, {archived: true});
+  milestones = milestones.filter(m => m.id !== id);
+  renderCalendar();
+}
+
+// ─── ACHIEVEMENTS ──────────────────────────────────────
+let achLoaded = false;
+
+const VT_CLASS = {
+  "Increased Usage":"vt-green","Workflow Captured":"vt-blue",
+  "Account Closed":"vt-purple","Product Fix Shipped":"vt-orange","Onboarding Accelerated":"vt-yellow"
+};
+
+async function loadAchievements() {
+  const el = document.getElementById('ach-list');
+  try {
+    const data = await notionPost(`databases/${ACHIEVEMENTS_DB}/query`, {sorts:[{property:"Date",direction:"descending"}]});
+    const items = (data.results || []).map(p => ({
+      id: p.id,
+      name: p.properties.Achievement?.title?.[0]?.plain_text || "",
+      date: p.properties.Date?.date?.start || "",
+      type: p.properties["Value Type"]?.select?.name || "",
+      account: p.properties["Linked Account"]?.rich_text?.[0]?.plain_text || "",
+      assessment: p.properties.Assessment?.rich_text?.[0]?.plain_text || "",
+      sprint: p.properties.Sprint?.select?.name || ""
+    }));
+    document.getElementById('ach-loading').style.display = 'none';
+    if (!items.length) {
+      el.innerHTML = '<div class="empty-state">No achievements logged yet.<br>Hit "+ Log achievement" to record your first win.</div>';
+      return;
+    }
+    el.innerHTML = items.map(a => `
+      <div class="ach-card">
+        <div class="ach-head">
+          <span class="ach-title">${a.name}</span>
+          ${a.type ? `<span class="ach-badge ${VT_CLASS[a.type]||''}">${a.type}</span>` : ""}
+          ${a.sprint ? `<span style="font-size:10px;color:var(--text2);">${a.sprint}</span>` : ""}
+        </div>
+        <div class="ach-meta">${a.date}${a.account ? ' · ' + a.account : ''}</div>
+        ${a.assessment ? `<div class="ach-assessment">${a.assessment}</div>` : ""}
+      </div>`).join("");
+    achLoaded = true;
+  } catch(e) {
+    document.getElementById('ach-loading').innerHTML = `<div class="err">Could not load achievements. Check API key and proxy.<br><small>${e.message}</small></div>`;
+  }
+}
+
+function openAchievementModal() {
+  document.getElementById('achievement-modal').classList.add('open');
+}
+
+async function saveAchievement() {
+  const props = {
+    Achievement: {title:[{text:{content: document.getElementById('ach-name').value}}]},
+    Date: {date:{start: document.getElementById('ach-date').value}},
+    "Value Type": {select:{name: document.getElementById('ach-type').value}},
+    "Linked Account": {rich_text:[{text:{content: document.getElementById('ach-account').value}}]},
+    Assessment: {rich_text:[{text:{content: document.getElementById('ach-assessment').value}}]},
+    Sprint: {select:{name: document.getElementById('ach-sprint').value}}
+  };
+  try {
+    await notionPost('pages', {parent:{database_id: ACHIEVEMENTS_DB}, properties: props});
+    closeModal('achievement-modal');
+    achLoaded = false;
+    await loadAchievements();
+  } catch(e) { alert('Save failed: ' + e.message); }
+}
+
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-backdrop').forEach(m => m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); }));
+
+// ─── SEGMENTS (static, editable locally) ───────────────
+const artifactTypes=["—","OPORD","WARNO","FRAGORD","Concept Sketch","VIZMAT","DSM/HPTL","BUA","CUB","Planning Timeline","Wargame Record","CONPLAN"];
+const segs=[
+  {id:"cocom",title:"Operational / COCOM",sub:"Geographic and functional combatant commands · strategic-operational level",arr:"$13.05M",
+   accounts:[{n:"US Joint Staff",a:"$7.5M",c:true},{n:"US Central Command",a:"$2.4M",c:true},{n:"Pacific Air Forces",a:"$0.6M",c:true},{n:"Pacific Fleet",a:"$0.6M",c:true},{n:"Naval Forces Europe",a:"$1.6M",c:true},{n:"603d AOC",a:"$0.35M",c:true},{n:"USTRANSCOM"},{n:"NORTHCOM"},{n:"USEUCOM"},{n:"CBP-OFO"},{n:"USSOCOM"},{n:"USSOUTHCOM"},{n:"USCENTCOM (FoC)"},{n:"NAVEUR AtomEngine"},{n:"PACAF"}],
+   wfs:[{n:"OPORD / WARNO production",p:72},{n:"GIE / CPX planning & execution",p:55},{n:"Battle Update Assessment (BUA)",p:68},{n:"Campaign plan synchronization",p:40}]},
+  {id:"tac",title:"Tactical / Corps & Division",sub:"Army, USMC, and joint HQs below COCOM — Corps, Division, MEF",arr:"$5.0M",
+   accounts:[{n:"III Corps",a:"$2.5M",c:true},{n:"Air Mobility Command",a:"$2.5M",c:true},{n:"V Corps"},{n:"XVIII Airborne Corps"},{n:"USAREUR-AF"},{n:"USARC"},{n:"MARFORPAC renewal"},{n:"US Army Japan (USARJ)"},{n:"APFIT 26"},{n:"7th ATC"},{n:"15 AF"},{n:"USMC SDO Pilot"},{n:"Navy POM 27"}],
+   wfs:[{n:"MDMP execution (Army / Marine)",p:78},{n:"Orders production & approval",p:60},{n:"Battle rhythm management",p:50},{n:"Staff section coordination",p:45}]},
+  {id:"exec",title:"Executive / Policy",sub:"Senior staff, secretariat, policy and strategy shops",arr:"$3.72M",
+   accounts:[{n:"ACC",a:"$3.0M",c:true},{n:"Army University / CASCOM",a:"$0.72M",c:true},{n:"OSW Immediate Office"},{n:"DIA BN HQ"},{n:"NRO"},{n:"DTRA J3/5/8"},{n:"Golden Dome"},{n:"[UK] CSOC Pilot"},{n:"[KSA] Joint Forces Command"},{n:"[KSA] USMTM"},{n:"Samaritan's Purse"},{n:"HIEMA"}],
+   wfs:[{n:"Policy development & coordination",p:40},{n:"Stakeholder review workflow",p:38},{n:"Congressional / senior leader reporting",p:30},{n:"Strategic planning & milestone tracking",p:35}]},
+  {id:"sof",title:"SOF / Special Operations",sub:"Special operations commands, TSOCs, and component commands",arr:"$0.18M",
+   accounts:[{n:"SOFCCC",a:"$0.18M",c:true},{n:"JSOC"},{n:"SOCNORTH"},{n:"SOCEUR"},{n:"SOCCENT"},{n:"SOCAF"},{n:"SOCKOR"},{n:"SOCSOUTH"},{n:"USASOC NCR"},{n:"FBI HRT"}],
+   wfs:[{n:"SOF planning (MCPP / MDMP hybrid)",p:45},{n:"TSOC / theater coordination",p:35},{n:"Mission planning & rehearsal",p:40},{n:"Component command synchronization",p:28}]},
+  {id:"wargame",title:"Wargame / Simulation",sub:"Atom Engine, Battle Road, and wargame-integrated customers",arr:"$19.375M",
+   accounts:[{n:"Battle Road NGC",a:"$17.0M",c:true},{n:"Battle Road IPC",a:"$2.375M",c:true},{n:"NGC MOD AtomEngine Expansion"},{n:"Space Forces-IP"},{n:"IPC J554 FMS Taiwan"},{n:"G-TEAD"}],
+   wfs:[{n:"Wargame execution & record keeping",p:65},{n:"Battle Road / AtomEngine integration",p:70},{n:"Simulation scenario planning",p:55},{n:"After-action review & adjudication",p:50}]},
+  {id:"nato",title:"NATO / Allied / International",sub:"Allied nations, coalition commands, partner militaries",arr:"$0.576M",
+   accounts:[{n:"Australia",a:"$0.576M",c:true},{n:"JFC Naples HQs"},{n:"[NATO] SHAPE"},{n:"[UK] MOD"},{n:"Japan JJOC"},{n:"USFJ"},{n:"[KSA] Saudi Arabia Government"}],
+   wfs:[{n:"Bilateral / coalition planning",p:22},{n:"Theater Security Cooperation (TSC)",p:25},{n:"Partner nation onboarding",p:20},{n:"Information sharing & interoperability",p:18}]}
+];
+
+function pmfColor(v){return v<35?"#E24B4A":v<=80?"#EF9F27":"#639922";}
+function updatePmf(bid,pid,iid){
+  const v=Math.min(100,Math.max(0,parseInt(document.getElementById(iid).value)||0));
+  const c=pmfColor(v);
+  document.getElementById(bid).style.width=v+"%";
+  document.getElementById(bid).style.background=c;
+  document.getElementById(pid).style.color=c;
+  document.getElementById(pid).textContent=v+"%";
+}
+
+const segEl=document.getElementById("segments");
+const opts=artifactTypes.map(t=>`<option>${t}</option>`).join("");
+segs.forEach(s=>{
+  const card=document.createElement("div"); card.className="seg-card";
+  const pills=s.accounts.map(a=>`<div class="apill${a.c?" arr":""}"><span>${a.n}</span>${a.a?`<span class="apill-amt">${a.a}</span>`:""}</div>`).join("");
+  const rows=s.wfs.map((w,i)=>{
+    const bid=`b-${s.id}-${i}`,pid=`p-${s.id}-${i}`,iid=`i-${s.id}-${i}`;
+    return `<tr><td class="wf-name">${w.n}</td>
       <td><div class="pmf-wrap">
         <input class="pmf-in" type="number" min="0" max="100" value="${w.p}" id="${iid}" oninput="updatePmf('${bid}','${pid}','${iid}')">
         <div class="pmf-bar"><div class="pmf-fill" id="${bid}" style="width:${w.p}%;background:${pmfColor(w.p)};"></div></div>
         <span class="pmf-pct" id="${pid}" style="color:${pmfColor(w.p)}">${w.p}%</span>
       </div></td>
       <td><select class="tag-sel">${opts}</select></td>
-      <td><input class="cr-in" type="text" placeholder="Name(s)"></td>
-    </tr>`;
+      <td><input class="cr-in" type="text" placeholder="Name(s)"></td></tr>`;
   }).join("");
-  card.innerHTML = `
+  card.innerHTML=`
     <div class="seg-head">
       <div><div class="seg-title">${s.title}</div><div class="seg-sub">${s.sub}</div></div>
-      <div class="money-row">
-        <span class="mc-label">ARR</span><span class="mchip mc-arr">${s.arr}</span>
-        <span class="mc-label">Pipeline</span><span class="mchip mc-pipe">TBD</span>
-        <span class="mc-label">Total</span><span class="mchip mc-total">${s.arr}</span>
-      </div>
+      <div class="money-row"><span class="mc-label">ARR</span><span class="mchip mc-arr">${s.arr}</span><span class="mc-label">Pipeline</span><span class="mchip mc-pipe">TBD</span><span class="mc-label">Total</span><span class="mchip mc-total">${s.arr}</span></div>
     </div>
     <div class="accounts">${pills}</div>
-    <table class="wf-table">
-      <thead><tr>
-        <th style="width:35%">Top workflow</th>
-        <th style="width:30%">PMF fit</th>
-        <th style="width:18%">Artifact type</th>
-        <th style="width:17%">CR lead</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
+    <table class="wf-table"><thead><tr>
+      <th style="width:35%">Top workflow</th><th style="width:30%">PMF fit</th><th style="width:18%">Artifact type</th><th style="width:17%">CR lead</th>
+    </tr></thead><tbody>${rows}</tbody></table>`;
   segEl.appendChild(card);
 });
 </script>
+
+<!--
+═══════════════════════════════════════════════════════
+DEPLOYMENT & SETUP NOTES
+═══════════════════════════════════════════════════════
+
+STEP 1 — Create a Notion integration
+1. Go to https://www.notion.so/my-integrations
+2. Click "+ New integration" → name it "Forge Ops Widget"
+3. Grant it Read + Update + Insert content capabilities
+4. Copy the "Internal Integration Token" (starts with ntn_...)
+5. Open your Notion workspace → share both databases with this integration:
+   - Forge Milestones
+   - Forge Achievements
+   (Open each database → ··· menu → Connections → add your integration)
+
+STEP 2 — Deploy a CORS proxy (Cloudflare Workers — free tier, ~2 min)
+Browsers block direct calls to the Notion API. You need a small proxy.
+
+a) Go to https://workers.cloudflare.com and create a free account
+b) Create a new Worker and paste this code:
+
+  export default {
+    async fetch(request) {
+      const url = new URL(request.url);
+      const notionUrl = "https://api.notion.com" + url.pathname + url.search;
+      const headers = new Headers(request.headers);
+      headers.set("Notion-Version", "2022-06-28");
+      const res = await fetch(notionUrl, {
+        method: request.method,
+        headers,
+        body: request.method !== "GET" ? request.body : undefined,
+      });
+      const r = new Response(res.body, res);
+      r.headers.set("Access-Control-Allow-Origin", "*");
+      r.headers.set("Access-Control-Allow-Headers", "*");
+      r.headers.set("Access-Control-Allow-Methods", "*");
+      return r;
+    }
+  };
+
+c) Deploy it — your proxy URL will be something like:
+   https://forge-proxy.YOUR-USERNAME.workers.dev
+
+STEP 3 — Fill in your credentials in this file
+At the top of the first <script> block, replace:
+  const NOTION_KEY = "YOUR_NOTION_API_KEY";   ← paste your ntn_... token
+  const PROXY = "https://notion-proxy.YOUR-USERNAME.workers.dev";  ← your Worker URL
+
+STEP 4 — Deploy to GitHub Pages (as before)
+Push this file as index.html to your GitHub repo.
+Settings → Pages → Deploy from main branch.
+
+STEP 5 — Embed in Notion
+Type /embed in your Forge Operations page → paste your GitHub Pages URL.
+═══════════════════════════════════════════════════════
+-->
 </body>
 </html>
