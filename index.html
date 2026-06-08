@@ -476,6 +476,7 @@ function showTab(name,btn){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
+  if(name==='rubric')renderRubric();
 }
 
 // ─── MISSION ───────────────────────────────────────────
@@ -865,12 +866,7 @@ function updateCriterion(segId,wfId,key,val){
   if(totalEl){totalEl.textContent=`${total.toFixed(1)} / ${MAX_RAW}`;totalEl.style.color=color;}
 }
 
-// Re-render rubric when tab is opened so new workflows appear
-const _origShowTab=showTab;
-function showTab(name,btn){
-  _origShowTab(name,btn);
-  if(name==='rubric')renderRubric();
-}
+
 
 // ─── INIT ──────────────────────────────────────────────
 initMission();
