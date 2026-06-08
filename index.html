@@ -146,10 +146,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 const NOTION_KEY = "YOUR_NOTION_API_KEY";
 const MILESTONES_DB = "626536f0-a492-49b2-9bc4-e9aa564fa36a";
 const ACHIEVEMENTS_DB = "02205e19-e9e0-482e-8939-5cfa7e11a0c2";
-const PROXY = "https://notion-proxy.YOUR-USERNAME.workers.dev"; // Replace with your Cloudflare Worker URL
+const PROXY = "https://notion-proxy.brie-burgett.workers.dev"; 
 
-// Because browsers block direct Notion API calls (CORS), you need a small proxy.
-// See the README section at the bottom of this file for setup instructions.
 
 async function notionGet(endpoint) {
   const r = await fetch(`${PROXY}/v1/${endpoint}`, {
