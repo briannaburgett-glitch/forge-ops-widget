@@ -32,10 +32,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tab.active{color:var(--text);border-bottom-color:#378ADD;}
 .tab:hover{color:var(--text);}
 .panel{display:none;}.panel.active{display:block;}
-
+.section-label{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:.5rem;}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;}
+.add-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;}
+.saved-flash{font-size:10px;color:var(--pmf-green);margin-left:8px;opacity:0;transition:opacity .3s;}
 /* Mission */
 .mission-box{background:var(--bg2);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.25rem 1.5rem;margin-bottom:1.25rem;}
-.section-label{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text2);margin-bottom:.5rem;}
 .mission-text{font-size:15px;color:var(--text);line-height:1.75;min-height:2em;}
 .mission-edit{width:100%;font-size:15px;line-height:1.75;background:transparent;border:none;color:var(--text);resize:none;outline:none;font-family:inherit;min-height:80px;}
 .edit-btn{font-size:11px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;margin-top:6px;}
@@ -45,16 +47,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .stat{display:flex;flex-direction:column;gap:2px;}
 .stat-label{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);}
 .stat-val{font-size:20px;font-weight:500;}
-.sv-arr{color:var(--blue);}.sv-n{color:var(--pmg-green);}
 .three-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
 .three-card{background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:.9rem;}
 .three-card-title{font-size:12px;font-weight:500;margin-bottom:4px;}
 .three-card-body{font-size:11px;color:var(--text2);line-height:1.6;}
-.saved-flash{font-size:10px;color:var(--pmf-green);margin-left:8px;opacity:0;transition:opacity .3s;}
-
 /* Calendar */
-.toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;}
-.add-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;}
 .cal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem;}
 .cal-month{background:var(--bg);border-radius:var(--radius);border:0.5px solid var(--border);padding:10px;}
 .cal-month.now{border-color:#378ADD;}
@@ -68,28 +65,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .planning-tag{background:var(--purple-bg);color:var(--purple);}
 .onboard-tag{background:var(--amber-bg);color:var(--amber);}
 .status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;flex-shrink:0;vertical-align:middle;}
-.s-Upcoming{background:var(--text3);}
-.s-In-Progress{background:var(--yellow);}
-.s-Complete{background:var(--pmf-green);}
+.s-Upcoming{background:var(--text3);}.s-In-Progress{background:var(--yellow);}.s-Complete{background:var(--pmf-green);}
 .cal-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:.5rem;}
 .li{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text2);}
 .ld{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-
-/* Modal */
-.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;}
-.modal-backdrop.open{display:flex;}
-.modal{background:var(--bg);border-radius:var(--radius-lg);padding:1.5rem;width:440px;max-width:95vw;border:0.5px solid var(--border2);max-height:90vh;overflow-y:auto;}
-.modal h3{font-size:14px;font-weight:500;margin-bottom:1rem;}
-.form-row{margin-bottom:.75rem;}
-.form-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:3px;display:block;}
-.form-input{width:100%;font-size:12px;padding:6px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;}
-.form-input:focus{outline:none;border-color:#378ADD;}
-.form-select{width:100%;font-size:12px;padding:6px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem;}
-.btn-cancel{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;}
-.btn-save{font-size:12px;padding:5px 14px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;}
-.btn-danger{font-size:12px;padding:5px 14px;border-radius:20px;border:none;background:var(--red);color:#fff;cursor:pointer;margin-right:auto;}
-
 /* Achievements */
 .ach-card{border:0.5px solid var(--border);border-radius:var(--radius);padding:.9rem 1rem;margin-bottom:.75rem;background:var(--bg);cursor:pointer;}
 .ach-card:hover{background:var(--bg2);}
@@ -104,7 +83,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .ach-meta{font-size:10px;color:var(--text2);margin-bottom:.5rem;}
 .ach-assessment{font-size:11px;color:var(--text);line-height:1.6;}
 .empty-state{text-align:center;padding:2rem;color:var(--text2);font-size:12px;}
-
 /* Segments */
 .seg-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:1rem;}
 .seg-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1.25rem;background:var(--bg);}
@@ -118,7 +96,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .mc-pipe{background:var(--amber-bg);color:var(--amber);}
 .mc-total{background:var(--green-bg);color:var(--green);}
 .accounts{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:.9rem;align-items:center;}
-.apill{font-size:10px;padding:3px 9px;border-radius:20px;border:0.5px solid var(--border2);color:var(--text);background:var(--bg2);display:flex;align-items:center;gap:4px;cursor:pointer;transition:opacity .15s;}
+.apill{font-size:10px;padding:3px 9px;border-radius:20px;border:0.5px solid var(--border2);color:var(--text);background:var(--bg2);display:flex;align-items:center;gap:4px;cursor:pointer;}
 .apill:hover{opacity:.75;}
 .apill.arr{background:var(--blue-bg);border-color:#85B7EB;color:var(--blue-dark);font-weight:500;}
 .apill.closed{background:var(--green-bg);border-color:#7DC25A;color:var(--green);font-weight:500;}
@@ -133,25 +111,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .wf-name-cell:hover{color:var(--blue);}
 .pmf-wrap{display:flex;align-items:center;gap:6px;}
 .pmf-bar{height:7px;border-radius:4px;flex:1;background:var(--bg3);overflow:hidden;min-width:40px;}
-.pmf-fill{height:100%;border-radius:4px;transition:width .25s;}
+.pmf-fill{height:100%;border-radius:4px;}
 .pmf-pct{font-size:10px;font-weight:500;min-width:28px;text-align:right;}
-.pmf-in{width:42px;font-size:10px;padding:2px 4px;border-radius:4px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);text-align:center;}
-.pmf-in:focus{outline:none;border-color:#378ADD;}
 .tag-sel,.cr-in{font-size:10px;padding:2px 5px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);}
 .cr-in{width:100%;}
-.cr-in:focus,.tag-sel:focus{outline:none;border-color:#378ADD;}
-.wf-add-row td{padding:4px 7px;}
-.wf-add-btn{font-size:10px;padding:2px 10px;border-radius:20px;border:0.5px dashed var(--border2);color:var(--text2);background:transparent;cursor:pointer;}
+.wf-add-btn{font-size:10px;padding:2px 10px;border-radius:20px;border:0.5px dashed var(--border2);color:var(--text2);background:transparent;cursor:pointer;margin:4px 7px;}
 .wf-add-btn:hover{border-color:var(--blue);color:var(--blue);}
-.wf-del{font-size:10px;cursor:pointer;color:var(--text3);padding:2px 4px;}
-.wf-del:hover{color:var(--red);}
 /* Rubric */
-.rubric-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:8px;}
-.rubric-legend{display:flex;gap:10px;flex-wrap:wrap;}
+.rubric-legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 .tier-badge{font-size:10px;padding:2px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
 .tier-high{background:var(--green-bg);color:var(--green);}
 .tier-med{background:var(--amber-bg);color:var(--amber);}
-.tier-low{background:#f0f0f0;color:var(--text2);}
+.tier-low{background:var(--bg3);color:var(--text2);}
 .rubric-card{border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;background:var(--bg);overflow:hidden;}
 .rubric-row{display:flex;align-items:center;padding:10px 12px;gap:12px;cursor:pointer;justify-content:space-between;}
 .rubric-row:hover{background:var(--bg2);}
@@ -161,7 +132,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .rubric-seg{font-size:10px;color:var(--text2);white-space:nowrap;}
 .rubric-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .rubric-score{font-size:18px;font-weight:500;min-width:36px;text-align:right;}
-.rubric-chevron{font-size:10px;color:var(--text3);transition:transform .2s;}
+.rubric-chevron{font-size:10px;color:var(--text3);transition:transform .2s;display:inline-block;}
 .rubric-chevron.open{transform:rotate(180deg);}
 .rubric-detail{display:none;padding:0 12px 12px;border-top:0.5px solid var(--border);}
 .rubric-detail.open{display:block;}
@@ -171,23 +142,38 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .criterion-tag{font-size:9px;padding:1px 6px;border-radius:10px;margin-left:5px;font-weight:500;}
 .tag-tiebreaker{background:var(--amber-bg);color:var(--amber);}
 .tag-weight{background:var(--purple-bg);color:var(--purple);}
-.criterion-select{font-size:11px;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);width:60px;text-align:center;}
+.criterion-select{font-size:11px;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);width:60px;}
 .criterion-select:focus{outline:none;border-color:#378ADD;}
 .score-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:0.5px solid var(--border);}
 .score-bar{height:6px;border-radius:4px;flex:1;background:var(--bg3);overflow:hidden;}
 .score-bar-fill{height:100%;border-radius:4px;transition:width .3s,background .3s;}
 .score-total-label{font-size:10px;color:var(--text2);}
-.score-total-val{font-size:13px;font-weight:500;min-width:40px;text-align:right;}
+.score-total-val{font-size:13px;font-weight:500;min-width:52px;text-align:right;}
+/* Modal */
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;}
+.modal-backdrop.open{display:flex;}
+.modal{background:var(--bg);border-radius:var(--radius-lg);padding:1.5rem;width:440px;max-width:95vw;border:0.5px solid var(--border2);max-height:90vh;overflow-y:auto;}
+.modal h3{font-size:14px;font-weight:500;margin-bottom:1rem;}
+.form-row{margin-bottom:.75rem;}
+.form-label{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:3px;display:block;}
+.form-input{width:100%;font-size:12px;padding:6px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;}
+.form-input:focus{outline:none;border-color:#378ADD;}
+.form-select{width:100%;font-size:12px;padding:6px 9px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:1rem;}
+.btn-cancel{font-size:12px;padding:5px 14px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;}
+.btn-save{font-size:12px;padding:5px 14px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;}
+.btn-danger{font-size:12px;padding:5px 14px;border-radius:20px;border:none;background:var(--red);color:#fff;cursor:pointer;margin-right:auto;}
+@media(max-width:600px){.three-grid,.cal-grid{grid-template-columns:1fr;}.stat-bar{gap:1rem;}}
 </style>
 </head>
 <body>
 
 <div class="tab-bar">
-  <button class="tab active" onclick="showTab('mission',this)">Mission</button>
-  <button class="tab" onclick="showTab('calendar',this)">Calendar</button>
-  <button class="tab" onclick="showTab('achievements',this)">Achievements</button>
-  <button class="tab" onclick="showTab('segments',this)">Customer segments</button>
-  <button class="tab" onclick="showTab('rubric',this)">Workflow scoring</button>
+  <button class="tab active" id="tab-btn-mission"   onclick="showTab('mission',this)">Mission</button>
+  <button class="tab"        id="tab-btn-calendar"  onclick="showTab('calendar',this)">Calendar</button>
+  <button class="tab"        id="tab-btn-achievements" onclick="showTab('achievements',this)">Achievements</button>
+  <button class="tab"        id="tab-btn-segments"  onclick="showTab('segments',this)">Customer segments</button>
+  <button class="tab"        id="tab-btn-rubric"    onclick="showTab('rubric',this)">Workflow scoring</button>
 </div>
 
 <!-- MISSION -->
@@ -204,7 +190,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
   </div>
   <div class="stat-bar">
-    <div class="stat"><span class="stat-label">Total ARR (contracted)</span><span class="stat-val sv-arr" id="global-arr">—</span></div>
+    <div class="stat"><span class="stat-label">Total ARR (contracted)</span><span class="stat-val" style="color:var(--blue);" id="global-arr">—</span></div>
     <div class="stat"><span class="stat-label">Accounts under contract</span><span class="stat-val" style="color:var(--pmf-green);" id="global-contracted">—</span></div>
     <div class="stat"><span class="stat-label">Accounts in pipeline</span><span class="stat-val" style="color:var(--amber);" id="global-pipeline">—</span></div>
     <div class="stat"><span class="stat-label">Segments</span><span class="stat-val" style="color:var(--text2);">6</span></div>
@@ -257,6 +243,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="segments"></div>
 </div>
 
+<!-- RUBRIC -->
+<div id="tab-rubric" class="panel">
+  <div class="toolbar">
+    <span class="section-label" style="margin:0;">Workflow priority scoring — ranked by total score</span>
+    <div class="rubric-legend">
+      <div class="li"><span class="tier-badge tier-high">High</span>&nbsp;≥22</div>
+      <div class="li"><span class="tier-badge tier-med">Medium</span>&nbsp;14–21</div>
+      <div class="li"><span class="tier-badge tier-low">Low</span>&nbsp;&lt;14</div>
+    </div>
+  </div>
+  <div id="rubric-list"></div>
+</div>
+
 <!-- MILESTONE MODAL -->
 <div class="modal-backdrop" id="milestone-modal">
   <div class="modal">
@@ -282,8 +281,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="modal-backdrop" id="account-modal">
   <div class="modal">
     <h3 id="acct-modal-title">Edit account</h3>
-    <div class="form-row"><label class="form-label">Account name</label><input class="form-input" id="acct-name" placeholder="e.g. INDOPACOM"></div>
-    <div class="form-row"><label class="form-label">Dollar amount</label><input class="form-input" id="acct-amount" placeholder="e.g. $1.2M (leave blank if pipeline)"></div>
+    <div class="form-row"><label class="form-label">Account name</label><input class="form-input" id="acct-name"></div>
+    <div class="form-row"><label class="form-label">Dollar amount (M)</label><input class="form-input" id="acct-amount" placeholder="e.g. 1.2"></div>
     <div class="form-row"><label class="form-label">Status</label>
       <select class="form-select" id="acct-status">
         <option value="pipeline">Pipeline</option>
@@ -303,8 +302,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="modal-backdrop" id="workflow-modal">
   <div class="modal">
     <h3 id="wf-modal-title">Edit workflow</h3>
-    <div class="form-row"><label class="form-label">Workflow name</label><input class="form-input" id="wf-name-input" placeholder="e.g. OPORD / WARNO production"></div>
-    <div class="form-row"><label class="form-label">PMF fit %</label><input class="form-input" id="wf-pmf-input" type="number" min="0" max="100" placeholder="0–100"></div>
+    <div class="form-row"><label class="form-label">Workflow name</label><input class="form-input" id="wf-name-input"></div>
+    <div class="form-row"><label class="form-label">PMF fit %</label><input class="form-input" id="wf-pmf-input" type="number" min="0" max="100"></div>
     <div class="form-row"><label class="form-label">Artifact type</label>
       <select class="form-select" id="wf-art-input">
         <option>—</option><option>Documents</option><option>Whiteboard</option><option>C2</option><option>Maps</option><option>C&amp;E</option><option>Presentations</option><option>Combination</option>
@@ -319,33 +318,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- RUBRIC -->
-<div id="tab-rubric" class="panel">
-  <div class="rubric-toolbar">
-    <span class="section-label" style="margin:0;">Workflow priority scoring — ranked by total score</span>
-    <div class="rubric-legend">
-      <div class="li"><span class="tier-badge tier-high">High</span> ≥22</div>
-      <div class="li"><span class="tier-badge tier-med">Medium</span> 14–21</div>
-      <div class="li"><span class="tier-badge tier-low">Low</span> &lt;14</div>
-    </div>
-  </div>
-  <div id="rubric-list"></div>
-</div>
-
 <!-- ACHIEVEMENT MODAL -->
 <div class="modal-backdrop" id="achievement-modal">
   <div class="modal">
     <h3 id="ach-modal-title">Log achievement</h3>
-    <div class="form-row"><label class="form-label">Title</label><input class="form-input" id="ach-name" placeholder="e.g. OPORD workflow validated with JS J3"></div>
+    <div class="form-row"><label class="form-label">Title</label><input class="form-input" id="ach-name"></div>
     <div class="form-row"><label class="form-label">Date</label><input class="form-input" id="ach-date" type="date"></div>
     <div class="form-row"><label class="form-label">Value type</label>
       <select class="form-select" id="ach-type">
         <option>Increased Usage</option><option>Workflow Captured</option><option>Account Closed</option><option>Product Fix Shipped</option><option>Onboarding Accelerated</option>
       </select>
     </div>
-    <div class="form-row"><label class="form-label">Linked account</label><input class="form-input" id="ach-account" placeholder="e.g. US Joint Staff"></div>
+    <div class="form-row"><label class="form-label">Linked account</label><input class="form-input" id="ach-account"></div>
     <div class="form-row"><label class="form-label">Assessment</label>
-      <textarea class="form-input" id="ach-assessment" rows="3" placeholder="What value was achieved?"></textarea>
+      <textarea class="form-input" id="ach-assessment" rows="3"></textarea>
     </div>
     <div class="form-row"><label class="form-label">Sprint</label>
       <select class="form-select" id="ach-sprint">
@@ -361,12 +347,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <script>
-// ─── STORAGE ───────────────────────────────────────────
-const SK = {mission:'forge_mission',milestones:'forge_milestones',achievements:'forge_achievements',segments:'forge_segments'};
-const DEFAULT_MISSION = "The Forge exists to make sure every new customer reaches value fast — and every existing customer stays. We use our own operators to find and fix the friction before commands do.";
-const DEFAULT_MILESTONES = [
-  {id:"ms1",name:"Forge kickoff",date:"2026-06-01",category:"Planning",status:"In Progress",notes:"Sprint 0 — team assignments"},
-  {id:"ms2",name:"Sprint 1: OPORD / WARNO production",date:"2026-06-15",category:"Sprint",status:"In Progress",notes:"Workflow catalogue v1"},
+// ── STORAGE ──────────────────────────────────────────────────────────────────
+var SK={mission:'forge_mission',milestones:'forge_milestones',achievements:'forge_achievements',segments:'forge_segments'};
+var DEFAULT_MISSION="The Forge exists to make sure every new customer reaches value fast — and every existing customer stays. We use our own operators to find and fix the friction before commands do.";
+var DEFAULT_MILESTONES=[
+  {id:"ms1",name:"Forge kickoff",date:"2026-06-01",category:"Planning",status:"In Progress",notes:""},
+  {id:"ms2",name:"Sprint 1: OPORD / WARNO production",date:"2026-06-15",category:"Sprint",status:"In Progress",notes:""},
   {id:"ms3",name:"Sprint 2: MDMP end-to-end",date:"2026-07-01",category:"Sprint",status:"Upcoming",notes:""},
   {id:"ms4",name:"Sprint 3: GIE / CPX planning",date:"2026-08-01",category:"Sprint",status:"Upcoming",notes:""},
   {id:"ms5",name:"Smartbook v1 release",date:"2026-09-01",category:"Review",status:"Upcoming",notes:""},
@@ -375,500 +361,400 @@ const DEFAULT_MILESTONES = [
   {id:"ms8",name:"Sprint 5: JTF workflows",date:"2026-10-15",category:"Sprint",status:"Upcoming",notes:""},
   {id:"ms9",name:"Sprint 6: SOF / TSOC workflows",date:"2026-11-01",category:"Sprint",status:"Upcoming",notes:""},
   {id:"ms10",name:"Sprint 7: Wargame / Simulation",date:"2026-12-01",category:"Sprint",status:"Upcoming",notes:""},
-  {id:"ms11",name:"Year-end review",date:"2026-12-15",category:"Review",status:"Upcoming",notes:"2027 planning"}
+  {id:"ms11",name:"Year-end review",date:"2026-12-15",category:"Review",status:"Upcoming",notes:""}
 ];
-const DEFAULT_SEGS = [
+var DEFAULT_SEGS=[
   {id:"cocom",title:"Operational / COCOM",sub:"Geographic and functional combatant commands · strategic-operational level",
-   accounts:[
-     {id:"a1",n:"US Joint Staff",a:"7.5",s:"contracted"},{id:"a2",n:"US Central Command",a:"2.4",s:"contracted"},
-     {id:"a3",n:"Pacific Air Forces",a:"0.6",s:"contracted"},{id:"a4",n:"Pacific Fleet",a:"0.6",s:"contracted"},
-     {id:"a5",n:"Naval Forces Europe",a:"1.6",s:"contracted"},{id:"a6",n:"603d AOC",a:"0.35",s:"contracted"},
-     {id:"a7",n:"USTRANSCOM",a:"",s:"pipeline"},{id:"a8",n:"NORTHCOM",a:"",s:"pipeline"},
-     {id:"a9",n:"USEUCOM",a:"",s:"pipeline"},{id:"a10",n:"CBP-OFO",a:"",s:"pipeline"},
-     {id:"a11",n:"USSOCOM",a:"",s:"pipeline"},{id:"a12",n:"USSOUTHCOM",a:"",s:"pipeline"},
-     {id:"a13",n:"USCENTCOM (FoC)",a:"",s:"pipeline"},{id:"a14",n:"NAVEUR AtomEngine",a:"",s:"pipeline"},
-     {id:"a15",n:"PACAF",a:"",s:"pipeline"}
-   ],
+   accounts:[{id:"a1",n:"US Joint Staff",a:"7.5",s:"contracted"},{id:"a2",n:"US Central Command",a:"2.4",s:"contracted"},{id:"a3",n:"Pacific Air Forces",a:"0.6",s:"contracted"},{id:"a4",n:"Pacific Fleet",a:"0.6",s:"contracted"},{id:"a5",n:"Naval Forces Europe",a:"1.6",s:"contracted"},{id:"a6",n:"603d AOC",a:"0.35",s:"contracted"},{id:"a7",n:"USTRANSCOM",a:"",s:"pipeline"},{id:"a8",n:"NORTHCOM",a:"",s:"pipeline"},{id:"a9",n:"USEUCOM",a:"",s:"pipeline"},{id:"a10",n:"CBP-OFO",a:"",s:"pipeline"},{id:"a11",n:"USSOCOM",a:"",s:"pipeline"},{id:"a12",n:"USSOUTHCOM",a:"",s:"pipeline"},{id:"a13",n:"USCENTCOM (FoC)",a:"",s:"pipeline"},{id:"a14",n:"NAVEUR AtomEngine",a:"",s:"pipeline"},{id:"a15",n:"PACAF",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"OPORD / WARNO production",p:72,art:"—",cr:""},{id:"w2",n:"GIE / CPX planning & execution",p:55,art:"—",cr:""},{id:"w3",n:"Battle Update Assessment (BUA)",p:68,art:"—",cr:""},{id:"w4",n:"Campaign plan synchronization",p:40,art:"—",cr:""}]},
   {id:"tac",title:"Tactical / Corps & Division",sub:"Army, USMC, and joint HQs below COCOM — Corps, Division, MEF",
-   accounts:[
-     {id:"b1",n:"III Corps",a:"2.5",s:"contracted"},{id:"b2",n:"Air Mobility Command",a:"2.5",s:"contracted"},
-     {id:"b3",n:"V Corps",a:"",s:"pipeline"},{id:"b4",n:"XVIII Airborne Corps",a:"",s:"pipeline"},
-     {id:"b5",n:"USAREUR-AF",a:"",s:"pipeline"},{id:"b6",n:"USARC",a:"",s:"pipeline"},
-     {id:"b7",n:"MARFORPAC renewal",a:"",s:"pipeline"},{id:"b8",n:"US Army Japan (USARJ)",a:"",s:"pipeline"},
-     {id:"b9",n:"APFIT 26",a:"",s:"pipeline"},{id:"b10",n:"7th ATC",a:"",s:"pipeline"},
-     {id:"b11",n:"15 AF",a:"",s:"pipeline"},{id:"b12",n:"USMC SDO Pilot",a:"",s:"pipeline"},
-     {id:"b13",n:"Navy POM 27",a:"",s:"pipeline"}
-   ],
+   accounts:[{id:"b1",n:"III Corps",a:"2.5",s:"contracted"},{id:"b2",n:"Air Mobility Command",a:"2.5",s:"contracted"},{id:"b3",n:"V Corps",a:"",s:"pipeline"},{id:"b4",n:"XVIII Airborne Corps",a:"",s:"pipeline"},{id:"b5",n:"USAREUR-AF",a:"",s:"pipeline"},{id:"b6",n:"USARC",a:"",s:"pipeline"},{id:"b7",n:"MARFORPAC renewal",a:"",s:"pipeline"},{id:"b8",n:"US Army Japan (USARJ)",a:"",s:"pipeline"},{id:"b9",n:"APFIT 26",a:"",s:"pipeline"},{id:"b10",n:"7th ATC",a:"",s:"pipeline"},{id:"b11",n:"15 AF",a:"",s:"pipeline"},{id:"b12",n:"USMC SDO Pilot",a:"",s:"pipeline"},{id:"b13",n:"Navy POM 27",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"MDMP execution (Army / Marine)",p:78,art:"—",cr:""},{id:"w2",n:"Orders production & approval",p:60,art:"—",cr:""},{id:"w3",n:"Battle rhythm management",p:50,art:"—",cr:""},{id:"w4",n:"Staff section coordination",p:45,art:"—",cr:""}]},
   {id:"exec",title:"Executive / Policy",sub:"Senior staff, secretariat, policy and strategy shops",
-   accounts:[
-     {id:"c1",n:"ACC",a:"3.0",s:"contracted"},{id:"c2",n:"Army University / CASCOM",a:"0.72",s:"contracted"},
-     {id:"c3",n:"OSW Immediate Office",a:"",s:"pipeline"},{id:"c4",n:"DIA BN HQ",a:"",s:"pipeline"},
-     {id:"c5",n:"NRO",a:"",s:"pipeline"},{id:"c6",n:"DTRA J3/5/8",a:"",s:"pipeline"},
-     {id:"c7",n:"Golden Dome",a:"",s:"pipeline"},{id:"c8",n:"[UK] CSOC Pilot",a:"",s:"pipeline"},
-     {id:"c9",n:"[KSA] Joint Forces Command",a:"",s:"pipeline"},{id:"c10",n:"[KSA] USMTM",a:"",s:"pipeline"},
-     {id:"c11",n:"Samaritan's Purse",a:"",s:"pipeline"},{id:"c12",n:"HIEMA",a:"",s:"pipeline"}
-   ],
+   accounts:[{id:"c1",n:"ACC",a:"3.0",s:"contracted"},{id:"c2",n:"Army University / CASCOM",a:"0.72",s:"contracted"},{id:"c3",n:"OSW Immediate Office",a:"",s:"pipeline"},{id:"c4",n:"DIA BN HQ",a:"",s:"pipeline"},{id:"c5",n:"NRO",a:"",s:"pipeline"},{id:"c6",n:"DTRA J3/5/8",a:"",s:"pipeline"},{id:"c7",n:"Golden Dome",a:"",s:"pipeline"},{id:"c8",n:"[UK] CSOC Pilot",a:"",s:"pipeline"},{id:"c9",n:"[KSA] Joint Forces Command",a:"",s:"pipeline"},{id:"c10",n:"[KSA] USMTM",a:"",s:"pipeline"},{id:"c11",n:"Samaritan's Purse",a:"",s:"pipeline"},{id:"c12",n:"HIEMA",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"Policy development & coordination",p:40,art:"—",cr:""},{id:"w2",n:"Stakeholder review workflow",p:38,art:"—",cr:""},{id:"w3",n:"Congressional / senior leader reporting",p:30,art:"—",cr:""},{id:"w4",n:"Strategic planning & milestone tracking",p:35,art:"—",cr:""}]},
   {id:"sof",title:"SOF / Special Operations",sub:"Special operations commands, TSOCs, and component commands",
-   accounts:[
-     {id:"d1",n:"SOFCCC",a:"0.18",s:"contracted"},
-     {id:"d2",n:"JSOC",a:"",s:"pipeline"},{id:"d3",n:"SOCNORTH",a:"",s:"pipeline"},
-     {id:"d4",n:"SOCEUR",a:"",s:"pipeline"},{id:"d5",n:"SOCCENT",a:"",s:"pipeline"},
-     {id:"d6",n:"SOCAF",a:"",s:"pipeline"},{id:"d7",n:"SOCKOR",a:"",s:"pipeline"},
-     {id:"d8",n:"SOCSOUTH",a:"",s:"pipeline"},{id:"d9",n:"USASOC NCR",a:"",s:"pipeline"},
-     {id:"d10",n:"FBI HRT",a:"",s:"pipeline"}
-   ],
+   accounts:[{id:"d1",n:"SOFCCC",a:"0.18",s:"contracted"},{id:"d2",n:"JSOC",a:"",s:"pipeline"},{id:"d3",n:"SOCNORTH",a:"",s:"pipeline"},{id:"d4",n:"SOCEUR",a:"",s:"pipeline"},{id:"d5",n:"SOCCENT",a:"",s:"pipeline"},{id:"d6",n:"SOCAF",a:"",s:"pipeline"},{id:"d7",n:"SOCKOR",a:"",s:"pipeline"},{id:"d8",n:"SOCSOUTH",a:"",s:"pipeline"},{id:"d9",n:"USASOC NCR",a:"",s:"pipeline"},{id:"d10",n:"FBI HRT",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"SOF planning (MCPP / MDMP hybrid)",p:45,art:"—",cr:""},{id:"w2",n:"TSOC / theater coordination",p:35,art:"—",cr:""},{id:"w3",n:"Mission planning & rehearsal",p:40,art:"—",cr:""},{id:"w4",n:"Component command synchronization",p:28,art:"—",cr:""}]},
   {id:"wargame",title:"Wargame / Simulation",sub:"Atom Engine, Battle Road, and wargame-integrated customers",
-   accounts:[
-     {id:"e1",n:"Battle Road NGC",a:"17.0",s:"contracted"},{id:"e2",n:"Battle Road IPC",a:"2.375",s:"contracted"},
-     {id:"e3",n:"NGC MOD AtomEngine Expansion",a:"",s:"pipeline"},{id:"e4",n:"Space Forces-IP",a:"",s:"pipeline"},
-     {id:"e5",n:"IPC J554 FMS Taiwan",a:"",s:"pipeline"},{id:"e6",n:"G-TEAD",a:"",s:"pipeline"}
-   ],
+   accounts:[{id:"e1",n:"Battle Road NGC",a:"17.0",s:"contracted"},{id:"e2",n:"Battle Road IPC",a:"2.375",s:"contracted"},{id:"e3",n:"NGC MOD AtomEngine Expansion",a:"",s:"pipeline"},{id:"e4",n:"Space Forces-IP",a:"",s:"pipeline"},{id:"e5",n:"IPC J554 FMS Taiwan",a:"",s:"pipeline"},{id:"e6",n:"G-TEAD",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"Wargame execution & record keeping",p:65,art:"—",cr:""},{id:"w2",n:"Battle Road / AtomEngine integration",p:70,art:"—",cr:""},{id:"w3",n:"Simulation scenario planning",p:55,art:"—",cr:""},{id:"w4",n:"After-action review & adjudication",p:50,art:"—",cr:""}]},
   {id:"nato",title:"NATO / Allied / International",sub:"Allied nations, coalition commands, partner militaries",
-   accounts:[
-     {id:"f1",n:"Australia",a:"0.576",s:"contracted"},
-     {id:"f2",n:"JFC Naples HQs",a:"",s:"pipeline"},{id:"f3",n:"[NATO] SHAPE",a:"",s:"pipeline"},
-     {id:"f4",n:"[UK] MOD",a:"",s:"pipeline"},{id:"f5",n:"Japan JJOC",a:"",s:"pipeline"},
-     {id:"f6",n:"USFJ",a:"",s:"pipeline"},{id:"f7",n:"[KSA] Saudi Arabia Government",a:"",s:"pipeline"}
-   ],
+   accounts:[{id:"f1",n:"Australia",a:"0.576",s:"contracted"},{id:"f2",n:"JFC Naples HQs",a:"",s:"pipeline"},{id:"f3",n:"[NATO] SHAPE",a:"",s:"pipeline"},{id:"f4",n:"[UK] MOD",a:"",s:"pipeline"},{id:"f5",n:"Japan JJOC",a:"",s:"pipeline"},{id:"f6",n:"USFJ",a:"",s:"pipeline"},{id:"f7",n:"[KSA] Saudi Arabia Government",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"Bilateral / coalition planning",p:22,art:"—",cr:""},{id:"w2",n:"Theater Security Cooperation (TSC)",p:25,art:"—",cr:""},{id:"w3",n:"Partner nation onboarding",p:20,art:"—",cr:""},{id:"w4",n:"Information sharing & interoperability",p:18,art:"—",cr:""}]}
 ];
 
-function load(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb;}catch{return fb;}}
-function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch{}}
+function lsGet(k,fb){try{var v=localStorage.getItem(k);return v?JSON.parse(v):fb;}catch(e){return fb;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
-let mission=load(SK.mission,DEFAULT_MISSION);
-let milestones=load(SK.milestones,DEFAULT_MILESTONES);
-let achievements=load(SK.achievements,[]);
-let segs=load(SK.segments,DEFAULT_SEGS);
-let editingMsId=null,editingAchId=null,editingAcct=null,editingWf=null;
+var mission=lsGet(SK.mission,DEFAULT_MISSION);
+var milestones=lsGet(SK.milestones,DEFAULT_MILESTONES);
+var achievements=lsGet(SK.achievements,[]);
+var segs=lsGet(SK.segments,DEFAULT_SEGS);
+var editingMsId=null,editingAchId=null,editingAcct=null,editingWf=null;
 
-// ─── UTILS ─────────────────────────────────────────────
-function uid(){return 'id'+Date.now()+Math.random().toString(36).slice(2);}
+// ── UTILS ─────────────────────────────────────────────────────────────────────
+function uid(){return 'id'+Date.now()+Math.floor(Math.random()*9999);}
 function pmfColor(v){return v<35?"#E24B4A":v<=80?"#EF9F27":"#639922";}
 function parseMoney(s){return parseFloat((s||"").toString().replace(/[^0-9.]/g,""))||0;}
-function fmtMoney(n){return n===0?"—":"$"+n.toFixed(n%1===0?0:3).replace(/\.?0+$/,"")+"M";}
-function flash(id){const el=document.getElementById(id);if(!el)return;el.style.opacity='1';setTimeout(()=>{el.style.opacity='0';},2000);}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-document.querySelectorAll('.modal-backdrop').forEach(m=>{m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');});});
+function fmtMoney(n){if(n===0)return"—";var s=n.toFixed(3).replace(/0+$/,"").replace(/\.$/,"");return"$"+s+"M";}
+function flash(id){var el=document.getElementById(id);if(!el)return;el.style.opacity="1";setTimeout(function(){el.style.opacity="0";},2000);}
+function closeModal(id){document.getElementById(id).classList.remove("open");}
 
-// ─── GLOBAL STATS ──────────────────────────────────────
+document.querySelectorAll(".modal-backdrop").forEach(function(m){
+  m.addEventListener("click",function(e){if(e.target===m)m.classList.remove("open");});
+});
+
+// ── TAB NAV ───────────────────────────────────────────────────────────────────
+function showTab(name,btn){
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.remove("active");});
+  document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
+  document.getElementById("tab-"+name).classList.add("active");
+  btn.classList.add("active");
+  if(name==="rubric"){renderRubric();}
+}
+
+// ── GLOBAL STATS ──────────────────────────────────────────────────────────────
 function updateGlobalStats(){
-  let totalArr=0,contracted=0,pipeline=0;
-  segs.forEach(s=>{
-    s.accounts.forEach(a=>{
-      if(a.s==='contracted'||a.s==='closed'){totalArr+=parseMoney(a.a);contracted++;}
+  var totalArr=0,contracted=0,pipeline=0;
+  segs.forEach(function(s){
+    s.accounts.forEach(function(a){
+      if(a.s==="contracted"||a.s==="closed"){totalArr+=parseMoney(a.a);contracted++;}
       else{pipeline++;}
     });
   });
-  document.getElementById('global-arr').textContent=fmtMoney(totalArr);
-  document.getElementById('global-contracted').textContent=contracted;
-  document.getElementById('global-pipeline').textContent=pipeline;
+  document.getElementById("global-arr").textContent=fmtMoney(totalArr);
+  document.getElementById("global-contracted").textContent=contracted;
+  document.getElementById("global-pipeline").textContent=pipeline;
 }
 
-// ─── TAB NAV ───────────────────────────────────────────
-function showTab(name,btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+name).classList.add('active');
-  btn.classList.add('active');
-  if(name==='rubric')renderRubric();
-}
-
-// ─── MISSION ───────────────────────────────────────────
-function initMission(){document.getElementById('mission-display').textContent=mission;}
+// ── MISSION ───────────────────────────────────────────────────────────────────
+function initMission(){document.getElementById("mission-display").textContent=mission;}
 function startMissionEdit(){
-  document.getElementById('mission-edit').value=mission;
-  document.getElementById('mission-display').style.display='none';
-  document.getElementById('mission-edit').style.display='block';
-  document.getElementById('mission-edit-btn').style.display='none';
-  document.getElementById('mission-save-btn').style.display='inline';
-  document.getElementById('mission-cancel-btn').style.display='inline';
+  document.getElementById("mission-edit").value=mission;
+  document.getElementById("mission-display").style.display="none";
+  document.getElementById("mission-edit").style.display="block";
+  document.getElementById("mission-edit-btn").style.display="none";
+  document.getElementById("mission-save-btn").style.display="inline";
+  document.getElementById("mission-cancel-btn").style.display="inline";
 }
 function cancelMissionEdit(){
-  document.getElementById('mission-display').style.display='block';
-  document.getElementById('mission-edit').style.display='none';
-  document.getElementById('mission-edit-btn').style.display='inline';
-  document.getElementById('mission-save-btn').style.display='none';
-  document.getElementById('mission-cancel-btn').style.display='none';
+  document.getElementById("mission-display").style.display="block";
+  document.getElementById("mission-edit").style.display="none";
+  document.getElementById("mission-edit-btn").style.display="inline";
+  document.getElementById("mission-save-btn").style.display="none";
+  document.getElementById("mission-cancel-btn").style.display="none";
 }
 function saveMission(){
-  mission=document.getElementById('mission-edit').value.trim();
-  save(SK.mission,mission);
-  document.getElementById('mission-display').textContent=mission;
-  cancelMissionEdit();flash('mission-flash');
+  mission=document.getElementById("mission-edit").value.trim();
+  lsSet(SK.mission,mission);
+  document.getElementById("mission-display").textContent=mission;
+  cancelMissionEdit();flash("mission-flash");
 }
 
-// ─── CALENDAR ──────────────────────────────────────────
-const CAL_MONTHS=[
+// ── CALENDAR ──────────────────────────────────────────────────────────────────
+var CAL_MONTHS=[
   {label:"Jun 2026",now:true,prefix:"2026-06"},{label:"Jul 2026",prefix:"2026-07"},
   {label:"Aug 2026",prefix:"2026-08"},{label:"Sep 2026",prefix:"2026-09"},
   {label:"Oct 2026",prefix:"2026-10"},{label:"Nov 2026",prefix:"2026-11"},
   {label:"Dec 2026",prefix:"2026-12"}
 ];
-const CAT_CLASS={Sprint:"sprint-tag",Review:"review-tag",Planning:"planning-tag",Onboarding:"onboard-tag"};
+var CAT_CLASS={Sprint:"sprint-tag",Review:"review-tag",Planning:"planning-tag",Onboarding:"onboard-tag"};
+
 function renderCalendar(){
-  const grid=document.getElementById('cal-grid');grid.innerHTML="";
-  CAL_MONTHS.forEach(m=>{
-    const events=milestones.filter(ms=>ms.date&&ms.date.startsWith(m.prefix));
-    const div=document.createElement("div");div.className="cal-month"+(m.now?" now":"");
-    let h=`<div class="cal-month-label">${m.label}${m.now?' <span style="font-size:9px;color:#378ADD;">● now</span>':""}</div>`;
-    events.forEach(ev=>{
-      const cls=CAT_CLASS[ev.category]||"sprint-tag";
-      const sc="s-"+(ev.status||"Upcoming").replace(" ","-");
-      h+=`<div class="cal-event ${cls}" onclick="openEditMilestone('${ev.id}')">
-        <span><span class="status-dot ${sc}"></span>${ev.name}</span>
-        <span class="ev-del" onclick="event.stopPropagation();confirmDelMs('${ev.id}')">✕</span>
-      </div>`;
+  var grid=document.getElementById("cal-grid");grid.innerHTML="";
+  CAL_MONTHS.forEach(function(m){
+    var events=milestones.filter(function(ms){return ms.date&&ms.date.indexOf(m.prefix)===0;});
+    var div=document.createElement("div");div.className="cal-month"+(m.now?" now":"");
+    var h='<div class="cal-month-label">'+m.label+(m.now?' <span style="font-size:9px;color:#378ADD;">● now</span>':"")+' </div>';
+    events.forEach(function(ev){
+      var cls=CAT_CLASS[ev.category]||"sprint-tag";
+      var sc="s-"+(ev.status||"Upcoming").replace(" ","-");
+      h+='<div class="cal-event '+cls+'" onclick="openEditMilestone(\''+ev.id+'\')">'
+        +'<span><span class="status-dot '+sc+'"></span>'+ev.name+'</span>'
+        +'<span class="ev-del" onclick="event.stopPropagation();confirmDelMs(\''+ev.id+'\')">✕</span>'
+        +'</div>';
     });
     div.innerHTML=h;grid.appendChild(div);
   });
 }
 function openMilestoneModal(){
   editingMsId=null;
-  document.getElementById('ms-modal-title').textContent='Add milestone';
-  ['ms-name','ms-notes'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('ms-date').value='2026-06-01';
-  document.getElementById('ms-category').value='Sprint';
-  document.getElementById('ms-status').value='Upcoming';
-  document.getElementById('ms-delete-btn').style.display='none';
-  document.getElementById('milestone-modal').classList.add('open');
+  document.getElementById("ms-modal-title").textContent="Add milestone";
+  document.getElementById("ms-name").value="";
+  document.getElementById("ms-date").value="2026-06-01";
+  document.getElementById("ms-category").value="Sprint";
+  document.getElementById("ms-status").value="Upcoming";
+  document.getElementById("ms-notes").value="";
+  document.getElementById("ms-delete-btn").style.display="none";
+  document.getElementById("milestone-modal").classList.add("open");
 }
 function openEditMilestone(id){
-  const ms=milestones.find(m=>m.id===id);if(!ms)return;
+  var ms=milestones.find(function(m){return m.id===id;});if(!ms)return;
   editingMsId=id;
-  document.getElementById('ms-modal-title').textContent='Edit milestone';
-  document.getElementById('ms-name').value=ms.name;
-  document.getElementById('ms-date').value=ms.date;
-  document.getElementById('ms-category').value=ms.category;
-  document.getElementById('ms-status').value=ms.status;
-  document.getElementById('ms-notes').value=ms.notes||'';
-  document.getElementById('ms-delete-btn').style.display='inline';
-  document.getElementById('milestone-modal').classList.add('open');
+  document.getElementById("ms-modal-title").textContent="Edit milestone";
+  document.getElementById("ms-name").value=ms.name;
+  document.getElementById("ms-date").value=ms.date;
+  document.getElementById("ms-category").value=ms.category;
+  document.getElementById("ms-status").value=ms.status;
+  document.getElementById("ms-notes").value=ms.notes||"";
+  document.getElementById("ms-delete-btn").style.display="inline";
+  document.getElementById("milestone-modal").classList.add("open");
 }
 function saveMilestone(){
-  const ms={id:editingMsId||uid(),name:document.getElementById('ms-name').value.trim(),date:document.getElementById('ms-date').value,category:document.getElementById('ms-category').value,status:document.getElementById('ms-status').value,notes:document.getElementById('ms-notes').value.trim()};
+  var ms={id:editingMsId||uid(),name:document.getElementById("ms-name").value.trim(),date:document.getElementById("ms-date").value,category:document.getElementById("ms-category").value,status:document.getElementById("ms-status").value,notes:document.getElementById("ms-notes").value.trim()};
   if(!ms.name||!ms.date)return;
-  if(editingMsId){milestones=milestones.map(m=>m.id===editingMsId?ms:m);}else{milestones.push(ms);}
-  save(SK.milestones,milestones);closeModal('milestone-modal');renderCalendar();
+  if(editingMsId){milestones=milestones.map(function(m){return m.id===editingMsId?ms:m;});}
+  else{milestones.push(ms);}
+  lsSet(SK.milestones,milestones);closeModal("milestone-modal");renderCalendar();
 }
-function confirmDelMs(id){milestones=milestones.filter(m=>m.id!==id);save(SK.milestones,milestones);renderCalendar();}
-function deleteMilestone(){if(editingMsId)confirmDelMs(editingMsId);closeModal('milestone-modal');}
+function confirmDelMs(id){milestones=milestones.filter(function(m){return m.id!==id;});lsSet(SK.milestones,milestones);renderCalendar();}
+function deleteMilestone(){if(editingMsId)confirmDelMs(editingMsId);closeModal("milestone-modal");}
 
-// ─── ACHIEVEMENTS ──────────────────────────────────────
-const VT_CLASS={"Increased Usage":"vt-green","Workflow Captured":"vt-blue","Account Closed":"vt-purple","Product Fix Shipped":"vt-orange","Onboarding Accelerated":"vt-yellow"};
+// ── ACHIEVEMENTS ──────────────────────────────────────────────────────────────
+var VT_CLASS={"Increased Usage":"vt-green","Workflow Captured":"vt-blue","Account Closed":"vt-purple","Product Fix Shipped":"vt-orange","Onboarding Accelerated":"vt-yellow"};
 function renderAchievements(){
-  const el=document.getElementById('ach-list');
+  var el=document.getElementById("ach-list");
   if(!achievements.length){el.innerHTML='<div class="empty-state">No achievements logged yet.<br>Hit "+ Log achievement" to record your first win.</div>';return;}
-  const sorted=[...achievements].sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-  el.innerHTML=sorted.map(a=>`<div class="ach-card" onclick="openEditAchievement('${a.id}')">
-    <div class="ach-head"><span class="ach-title">${a.name}</span>${a.type?`<span class="ach-badge ${VT_CLASS[a.type]||''}">${a.type}</span>`:""}${a.sprint&&a.sprint!=='General'?`<span style="font-size:10px;color:var(--text2);">${a.sprint}</span>`:""}</div>
-    <div class="ach-meta">${a.date}${a.account?' · '+a.account:''}</div>
-    ${a.assessment?`<div class="ach-assessment">${a.assessment}</div>`:""}
-  </div>`).join("");
+  var sorted=achievements.slice().sort(function(a,b){return(b.date||"").localeCompare(a.date||"");});
+  el.innerHTML=sorted.map(function(a){
+    return'<div class="ach-card" onclick="openEditAchievement(\''+a.id+'\')"><div class="ach-head"><span class="ach-title">'+a.name+'</span>'+(a.type?'<span class="ach-badge '+(VT_CLASS[a.type]||"")+'">'+a.type+'</span>':"")+
+    (a.sprint&&a.sprint!=="General"?'<span style="font-size:10px;color:var(--text2);">'+a.sprint+"</span>":"")+
+    '</div><div class="ach-meta">'+a.date+(a.account?" · "+a.account:"")+"</div>"+
+    (a.assessment?'<div class="ach-assessment">'+a.assessment+"</div>":"")+
+    "</div>";
+  }).join("");
 }
 function openAchievementModal(){
   editingAchId=null;
-  document.getElementById('ach-modal-title').textContent='Log achievement';
-  ['ach-name','ach-account','ach-assessment'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('ach-date').value=new Date().toISOString().split('T')[0];
-  document.getElementById('ach-type').value='Increased Usage';
-  document.getElementById('ach-sprint').value='General';
-  document.getElementById('ach-delete-btn').style.display='none';
-  document.getElementById('achievement-modal').classList.add('open');
+  document.getElementById("ach-modal-title").textContent="Log achievement";
+  ["ach-name","ach-account","ach-assessment"].forEach(function(id){document.getElementById(id).value="";});
+  document.getElementById("ach-date").value=new Date().toISOString().split("T")[0];
+  document.getElementById("ach-type").value="Increased Usage";
+  document.getElementById("ach-sprint").value="General";
+  document.getElementById("ach-delete-btn").style.display="none";
+  document.getElementById("achievement-modal").classList.add("open");
 }
 function openEditAchievement(id){
-  const a=achievements.find(x=>x.id===id);if(!a)return;
+  var a=achievements.find(function(x){return x.id===id;});if(!a)return;
   editingAchId=id;
-  document.getElementById('ach-modal-title').textContent='Edit achievement';
-  document.getElementById('ach-name').value=a.name;
-  document.getElementById('ach-date').value=a.date;
-  document.getElementById('ach-type').value=a.type;
-  document.getElementById('ach-account').value=a.account||'';
-  document.getElementById('ach-assessment').value=a.assessment||'';
-  document.getElementById('ach-sprint').value=a.sprint||'General';
-  document.getElementById('ach-delete-btn').style.display='inline';
-  document.getElementById('achievement-modal').classList.add('open');
+  document.getElementById("ach-modal-title").textContent="Edit achievement";
+  document.getElementById("ach-name").value=a.name;
+  document.getElementById("ach-date").value=a.date;
+  document.getElementById("ach-type").value=a.type;
+  document.getElementById("ach-account").value=a.account||"";
+  document.getElementById("ach-assessment").value=a.assessment||"";
+  document.getElementById("ach-sprint").value=a.sprint||"General";
+  document.getElementById("ach-delete-btn").style.display="inline";
+  document.getElementById("achievement-modal").classList.add("open");
 }
 function saveAchievement(){
-  const a={id:editingAchId||uid(),name:document.getElementById('ach-name').value.trim(),date:document.getElementById('ach-date').value,type:document.getElementById('ach-type').value,account:document.getElementById('ach-account').value.trim(),assessment:document.getElementById('ach-assessment').value.trim(),sprint:document.getElementById('ach-sprint').value};
+  var a={id:editingAchId||uid(),name:document.getElementById("ach-name").value.trim(),date:document.getElementById("ach-date").value,type:document.getElementById("ach-type").value,account:document.getElementById("ach-account").value.trim(),assessment:document.getElementById("ach-assessment").value.trim(),sprint:document.getElementById("ach-sprint").value};
   if(!a.name)return;
-  if(editingAchId){achievements=achievements.map(x=>x.id===editingAchId?a:x);}else{achievements.push(a);}
-  save(SK.achievements,achievements);closeModal('achievement-modal');renderAchievements();
+  if(editingAchId){achievements=achievements.map(function(x){return x.id===editingAchId?a:x;});}
+  else{achievements.push(a);}
+  lsSet(SK.achievements,achievements);closeModal("achievement-modal");renderAchievements();
 }
-function deleteAchievement(){if(editingAchId)achievements=achievements.filter(x=>x.id!==editingAchId);save(SK.achievements,achievements);closeModal('achievement-modal');renderAchievements();}
+function deleteAchievement(){
+  if(editingAchId)achievements=achievements.filter(function(x){return x.id!==editingAchId;});
+  lsSet(SK.achievements,achievements);closeModal("achievement-modal");renderAchievements();
+}
 
-// ─── SEGMENTS ──────────────────────────────────────────
-function segArr(seg){
-  return seg.accounts.filter(a=>a.s==='contracted'||a.s==='closed').reduce((s,a)=>s+parseMoney(a.a),0);
-}
-function segPipe(seg){return seg.accounts.filter(a=>a.s==='pipeline').length;}
+// ── SEGMENTS ──────────────────────────────────────────────────────────────────
+function segArr(seg){return seg.accounts.filter(function(a){return a.s==="contracted"||a.s==="closed";}).reduce(function(s,a){return s+parseMoney(a.a);},0);}
+function segPipe(seg){return seg.accounts.filter(function(a){return a.s==="pipeline";}).length;}
 
 function renderSegments(){
-  const el=document.getElementById('segments');el.innerHTML='';
-  segs.forEach(seg=>{
-    const arr=segArr(seg);
-    const pipe=segPipe(seg);
-    const card=document.createElement('div');card.className='seg-card';
-
-    const pills=seg.accounts.map(a=>{
-      const cls=a.s==='contracted'?'arr':a.s==='closed'?'closed':'';
-      const amt=a.a?` <span class="apill-amt">$${a.a}M</span>`:'';
-      return `<div class="apill ${cls}" onclick="openAcctModal('${seg.id}','${a.id}')" title="Click to edit">${a.n}${amt}</div>`;
-    }).join('');
-
-    const wfRows=seg.wfs.map(w=>`
-      <tr>
-        <td class="wf-name-cell" onclick="openWfModal('${seg.id}','${w.id}')" title="Click to edit">${w.n}</td>
-        <td><div class="pmf-wrap">
-          <span class="pmf-pct" style="min-width:32px;color:${pmfColor(w.p)}">${w.p}%</span>
-          <div class="pmf-bar"><div class="pmf-fill" style="width:${w.p}%;background:${pmfColor(w.p)};"></div></div>
-        </div></td>
-        <td><span style="font-size:10px;color:var(--text2);">${w.art||'—'}</span></td>
-        <td><span style="font-size:10px;color:var(--text2);">${w.cr||'—'}</span></td>
-      </tr>`).join('');
-
-    card.innerHTML=`
-      <div class="seg-head">
-        <div><div class="seg-title">${seg.title}</div><div class="seg-sub">${seg.sub}</div></div>
-        <div class="money-row">
-          <span class="mc-label">ARR</span><span class="mchip mc-arr">${fmtMoney(arr)}</span>
-          <span class="mc-label">Pipeline</span><span class="mchip mc-pipe">${pipe} accts</span>
-          <span class="mc-label">Total contracted</span><span class="mchip mc-total">${fmtMoney(arr)}</span>
-        </div>
-      </div>
-      <div class="accounts" id="pills-${seg.id}">${pills}
-        <div class="add-pill" onclick="openAddAcctModal('${seg.id}')">+ Add account</div>
-      </div>
-      <table class="wf-table">
-        <thead><tr>
-          <th style="width:34%">Workflow <span style="font-weight:400;opacity:.6;">(click to edit)</span></th>
-          <th style="width:28%">PMF fit</th>
-          <th style="width:20%">Artifact type</th>
-          <th style="width:18%">CR Support</th>
-        </tr></thead>
-        <tbody id="wf-tbody-${seg.id}">${wfRows}</tbody>
-      </table>
-      <div style="padding:4px 7px;"><button class="wf-add-btn" onclick="openAddWfModal('${seg.id}')">+ Add workflow</button></div>`;
+  var el=document.getElementById("segments");el.innerHTML="";
+  segs.forEach(function(seg){
+    var arr=segArr(seg),pipe=segPipe(seg);
+    var card=document.createElement("div");card.className="seg-card";
+    var pills=seg.accounts.map(function(a){
+      var cls=a.s==="contracted"?"arr":a.s==="closed"?"closed":"";
+      var amt=a.a?' <span class="apill-amt">$'+a.a+'M</span>':"";
+      return'<div class="apill '+cls+'" onclick="openAcctModal(\''+seg.id+'\',\''+a.id+'\')" title="Click to edit">'+a.n+amt+"</div>";
+    }).join("");
+    var wfRows=seg.wfs.map(function(w){
+      return'<tr><td class="wf-name-cell" onclick="openWfModal(\''+seg.id+'\',\''+w.id+'\')" title="Click to edit">'+w.n+'</td>'
+        +'<td><div class="pmf-wrap"><span class="pmf-pct" style="min-width:32px;color:'+pmfColor(w.p)+'">'+w.p+'%</span>'
+        +'<div class="pmf-bar"><div class="pmf-fill" style="width:'+w.p+'%;background:'+pmfColor(w.p)+';"></div></div></div></td>'
+        +'<td><span style="font-size:10px;color:var(--text2);">'+(w.art||"—")+'</span></td>'
+        +'<td><span style="font-size:10px;color:var(--text2);">'+(w.cr||"—")+'</span></td></tr>';
+    }).join("");
+    card.innerHTML='<div class="seg-head"><div><div class="seg-title">'+seg.title+'</div><div class="seg-sub">'+seg.sub+'</div></div>'
+      +'<div class="money-row"><span class="mc-label">ARR</span><span class="mchip mc-arr">'+fmtMoney(arr)+'</span>'
+      +'<span class="mc-label">Pipeline</span><span class="mchip mc-pipe">'+pipe+' accts</span>'
+      +'<span class="mc-label">Total contracted</span><span class="mchip mc-total">'+fmtMoney(arr)+'</span></div></div>'
+      +'<div class="accounts">'+pills+'<div class="add-pill" onclick="openAddAcctModal(\''+seg.id+'\')">+ Add account</div></div>'
+      +'<table class="wf-table"><thead><tr><th style="width:34%">Workflow <span style="font-weight:400;opacity:.6;">(click to edit)</span></th>'
+      +'<th style="width:28%">PMF fit</th><th style="width:20%">Artifact type</th><th style="width:18%">CR Support</th></tr></thead>'
+      +'<tbody>'+wfRows+'</tbody></table>'
+      +'<div style="padding:4px 7px;"><button class="wf-add-btn" onclick="openAddWfModal(\''+seg.id+'\')">+ Add workflow</button></div>';
     el.appendChild(card);
   });
   updateGlobalStats();
 }
 
-// ─── ACCOUNT MODAL ─────────────────────────────────────
 function openAcctModal(segId,acctId){
-  const seg=segs.find(s=>s.id===segId);
-  const acct=seg.accounts.find(a=>a.id===acctId);
-  editingAcct={segId,acctId};
-  document.getElementById('acct-modal-title').textContent='Edit account';
-  document.getElementById('acct-name').value=acct.n;
-  document.getElementById('acct-amount').value=acct.a||'';
-  document.getElementById('acct-status').value=acct.s;
-  document.getElementById('acct-delete-btn').style.display='inline';
-  document.getElementById('account-modal').classList.add('open');
+  var seg=segs.find(function(s){return s.id===segId;});
+  var acct=seg.accounts.find(function(a){return a.id===acctId;});
+  editingAcct={segId:segId,acctId:acctId};
+  document.getElementById("acct-modal-title").textContent="Edit account";
+  document.getElementById("acct-name").value=acct.n;
+  document.getElementById("acct-amount").value=acct.a||"";
+  document.getElementById("acct-status").value=acct.s;
+  document.getElementById("acct-delete-btn").style.display="inline";
+  document.getElementById("account-modal").classList.add("open");
 }
 function openAddAcctModal(segId){
-  editingAcct={segId,acctId:null};
-  document.getElementById('acct-modal-title').textContent='Add account';
-  document.getElementById('acct-name').value='';
-  document.getElementById('acct-amount').value='';
-  document.getElementById('acct-status').value='pipeline';
-  document.getElementById('acct-delete-btn').style.display='none';
-  document.getElementById('account-modal').classList.add('open');
+  editingAcct={segId:segId,acctId:null};
+  document.getElementById("acct-modal-title").textContent="Add account";
+  document.getElementById("acct-name").value="";
+  document.getElementById("acct-amount").value="";
+  document.getElementById("acct-status").value="pipeline";
+  document.getElementById("acct-delete-btn").style.display="none";
+  document.getElementById("account-modal").classList.add("open");
 }
 function saveAccount(){
-  const {segId,acctId}=editingAcct;
-  const seg=segs.find(s=>s.id===segId);
-  const updated={id:acctId||uid(),n:document.getElementById('acct-name').value.trim(),a:document.getElementById('acct-amount').value.replace(/[^0-9.]/g,''),s:document.getElementById('acct-status').value};
+  var segId=editingAcct.segId,acctId=editingAcct.acctId;
+  var seg=segs.find(function(s){return s.id===segId;});
+  var updated={id:acctId||uid(),n:document.getElementById("acct-name").value.trim(),a:document.getElementById("acct-amount").value.replace(/[^0-9.]/g,""),s:document.getElementById("acct-status").value};
   if(!updated.n)return;
-  if(acctId){seg.accounts=seg.accounts.map(a=>a.id===acctId?updated:a);}else{seg.accounts.push(updated);}
-  save(SK.segments,segs);closeModal('account-modal');renderSegments();
+  if(acctId){seg.accounts=seg.accounts.map(function(a){return a.id===acctId?updated:a;});}
+  else{seg.accounts.push(updated);}
+  lsSet(SK.segments,segs);closeModal("account-modal");renderSegments();
 }
 function deleteAccount(){
-  const {segId,acctId}=editingAcct;
-  const seg=segs.find(s=>s.id===segId);
-  seg.accounts=seg.accounts.filter(a=>a.id!==acctId);
-  save(SK.segments,segs);closeModal('account-modal');renderSegments();
+  var segId=editingAcct.segId,acctId=editingAcct.acctId;
+  var seg=segs.find(function(s){return s.id===segId;});
+  seg.accounts=seg.accounts.filter(function(a){return a.id!==acctId;});
+  lsSet(SK.segments,segs);closeModal("account-modal");renderSegments();
 }
 
-// ─── WORKFLOW MODAL ────────────────────────────────────
 function openWfModal(segId,wfId){
-  const seg=segs.find(s=>s.id===segId);
-  const wf=seg.wfs.find(w=>w.id===wfId);
-  editingWf={segId,wfId};
-  document.getElementById('wf-modal-title').textContent='Edit workflow';
-  document.getElementById('wf-name-input').value=wf.n;
-  document.getElementById('wf-pmf-input').value=wf.p;
-  document.getElementById('wf-art-input').value=wf.art||'—';
-  document.getElementById('wf-cr-input').value=wf.cr||'';
-  document.getElementById('wf-delete-btn').style.display='inline';
-  document.getElementById('workflow-modal').classList.add('open');
+  var seg=segs.find(function(s){return s.id===segId;});
+  var wf=seg.wfs.find(function(w){return w.id===wfId;});
+  editingWf={segId:segId,wfId:wfId};
+  document.getElementById("wf-modal-title").textContent="Edit workflow";
+  document.getElementById("wf-name-input").value=wf.n;
+  document.getElementById("wf-pmf-input").value=wf.p;
+  document.getElementById("wf-art-input").value=wf.art||"—";
+  document.getElementById("wf-cr-input").value=wf.cr||"";
+  document.getElementById("wf-delete-btn").style.display="inline";
+  document.getElementById("workflow-modal").classList.add("open");
 }
 function openAddWfModal(segId){
-  editingWf={segId,wfId:null};
-  document.getElementById('wf-modal-title').textContent='Add workflow';
-  document.getElementById('wf-name-input').value='';
-  document.getElementById('wf-pmf-input').value='50';
-  document.getElementById('wf-art-input').value='—';
-  document.getElementById('wf-cr-input').value='';
-  document.getElementById('wf-delete-btn').style.display='none';
-  document.getElementById('workflow-modal').classList.add('open');
+  editingWf={segId:segId,wfId:null};
+  document.getElementById("wf-modal-title").textContent="Add workflow";
+  document.getElementById("wf-name-input").value="";
+  document.getElementById("wf-pmf-input").value="50";
+  document.getElementById("wf-art-input").value="—";
+  document.getElementById("wf-cr-input").value="";
+  document.getElementById("wf-delete-btn").style.display="none";
+  document.getElementById("workflow-modal").classList.add("open");
 }
 function saveWorkflow(){
-  const {segId,wfId}=editingWf;
-  const seg=segs.find(s=>s.id===segId);
-  const updated={id:wfId||uid(),n:document.getElementById('wf-name-input').value.trim(),p:Math.min(100,Math.max(0,parseInt(document.getElementById('wf-pmf-input').value)||0)),art:document.getElementById('wf-art-input').value,cr:document.getElementById('wf-cr-input').value.trim()};
+  var segId=editingWf.segId,wfId=editingWf.wfId;
+  var seg=segs.find(function(s){return s.id===segId;});
+  var updated={id:wfId||uid(),n:document.getElementById("wf-name-input").value.trim(),p:Math.min(100,Math.max(0,parseInt(document.getElementById("wf-pmf-input").value)||0)),art:document.getElementById("wf-art-input").value,cr:document.getElementById("wf-cr-input").value.trim()};
   if(!updated.n)return;
-  if(wfId){seg.wfs=seg.wfs.map(w=>w.id===wfId?updated:w);}else{seg.wfs.push(updated);}
-  save(SK.segments,segs);closeModal('workflow-modal');renderSegments();
+  if(wfId){seg.wfs=seg.wfs.map(function(w){return w.id===wfId?updated:w;});}
+  else{seg.wfs.push(updated);}
+  lsSet(SK.segments,segs);closeModal("workflow-modal");renderSegments();
 }
 function deleteWorkflow(){
-  const {segId,wfId}=editingWf;
-  const seg=segs.find(s=>s.id===segId);
-  seg.wfs=seg.wfs.filter(w=>w.id!==wfId);
-  save(SK.segments,segs);closeModal('workflow-modal');renderSegments();
+  var segId=editingWf.segId,wfId=editingWf.wfId;
+  var seg=segs.find(function(s){return s.id===segId;});
+  seg.wfs=seg.wfs.filter(function(w){return w.id!==wfId;});
+  lsSet(SK.segments,segs);closeModal("workflow-modal");renderSegments();
 }
 
-// ─── RUBRIC ────────────────────────────────────────────
-const CRITERIA = [
-  {key:"strategic",  label:"Strategic Value of Account",          tag:"tiebreaker", weight:1},
-  {key:"pmf",        label:"Current Product-Market Fit",          tag:null,         weight:1},
-  {key:"asks",       label:"Upcoming Company Asks to Account",    tag:null,         weight:1},
-  {key:"unblocked",  label:"High-Value Workflow Unblocked",       tag:null,         weight:1},
-  {key:"impact",     label:"Impact to Account",                   tag:"tiebreaker", weight:1},
-  {key:"shared",     label:"How Many Other Accounts Share Requirement", tag:"1.5x", weight:1.5},
-  {key:"sales",      label:"Sales Implication + ARR Potential",   tag:"1.5x",       weight:1.5}
+// ── RUBRIC ────────────────────────────────────────────────────────────────────
+var CRITERIA=[
+  {key:"strategic", label:"Strategic Value of Account",           tag:"tiebreaker", weight:1},
+  {key:"pmf",       label:"Current Product-Market Fit",           tag:null,         weight:1},
+  {key:"asks",      label:"Upcoming Company Asks to Account",     tag:null,         weight:1},
+  {key:"unblocked", label:"High-Value Workflow Unblocked",        tag:null,         weight:1},
+  {key:"impact",    label:"Impact to Account",                    tag:"tiebreaker", weight:1},
+  {key:"shared",    label:"How Many Other Accounts Share Requirement", tag:"1.5x",  weight:1.5},
+  {key:"sales",     label:"Sales Implication + ARR Potential",    tag:"1.5x",       weight:1.5}
 ];
-const MAX_RAW = CRITERIA.reduce((s,c)=>s+(4*c.weight),0); // 4*1+4*1+4*1+4*1+4*1+4*1.5+4*1.5 = 28
+var MAX_RAW=CRITERIA.reduce(function(s,c){return s+(4*c.weight);},0);
 
-function wfScoreKey(segId,wfId){return `forge_rubric_${segId}_${wfId}`;}
-
-function loadScores(segId,wfId){
-  try{
-    const v=localStorage.getItem(wfScoreKey(segId,wfId));
-    return v?JSON.parse(v):{};
-  }catch{return {};}
-}
-function saveScores(segId,wfId,scores){
-  try{localStorage.setItem(wfScoreKey(segId,wfId),JSON.stringify(scores));}catch{}
-}
+function rbKey(segId,wfId){return"forge_rb_"+segId+"_"+wfId;}
+function loadRbScores(segId,wfId){return lsGet(rbKey(segId,wfId),{});}
+function saveRbScores(segId,wfId,scores){lsSet(rbKey(segId,wfId),scores);}
 
 function calcTotal(scores){
-  return CRITERIA.reduce((s,c)=>s+((parseInt(scores[c.key])||1)*c.weight),0);
+  return CRITERIA.reduce(function(s,c){return s+((parseInt(scores[c.key])||1)*c.weight);},0);
 }
-
-function tierClass(total){
-  if(total>=22)return'tier-high';
-  if(total>=14)return'tier-med';
-  return'tier-low';
-}
-function tierLabel(total){
-  if(total>=22)return'High';
-  if(total>=14)return'Medium';
-  return'Low';
-}
-function scoreColor(total){
-  const pct=total/MAX_RAW;
-  if(pct>=0.75)return'#639922';
-  if(pct>=0.45)return'#EF9F27';
-  return'#E24B4A';
-}
+function tierClass(t){return t>=22?"tier-high":t>=14?"tier-med":"tier-low";}
+function tierLabel(t){return t>=22?"High":t>=14?"Medium":"Low";}
+function scoreColor(t){var p=t/MAX_RAW;return p>=0.75?"#639922":p>=0.45?"#EF9F27":"#E24B4A";}
 
 function renderRubric(){
-  // Collect all workflows across all segments
-  let all=[];
-  segs.forEach(seg=>{
-    seg.wfs.forEach(wf=>{
-      const scores=loadScores(seg.id,wf.id);
-      const total=calcTotal(scores);
-      all.push({seg,wf,scores,total});
+  var all=[];
+  segs.forEach(function(seg){
+    seg.wfs.forEach(function(wf){
+      var scores=loadRbScores(seg.id,wf.id);
+      var total=calcTotal(scores);
+      all.push({seg:seg,wf:wf,scores:scores,total:total});
     });
   });
-  // Sort by total descending
-  all.sort((a,b)=>b.total-a.total);
+  all.sort(function(a,b){return b.total-a.total;});
 
-  const el=document.getElementById('rubric-list');
-  el.innerHTML='';
-  all.forEach((item,idx)=>{
-    const {seg,wf,scores,total}=item;
-    const pct=(total/MAX_RAW*100).toFixed(0);
-    const card=document.createElement('div');
-    card.className='rubric-card';
+  var el=document.getElementById("rubric-list");el.innerHTML="";
+  all.forEach(function(item,idx){
+    var seg=item.seg,wf=item.wf,scores=item.scores,total=item.total;
+    var pct=(total/MAX_RAW*100).toFixed(0);
+    var card=document.createElement("div");card.className="rubric-card";card.id="rc-"+seg.id+"-"+wf.id;
 
-    const criteriaRows=CRITERIA.map(c=>{
-      const val=scores[c.key]||1;
-      const opts=[1,2,3,4].map(n=>`<option value="${n}"${n===val?' selected':''}>${n}</option>`).join('');
-      const tagHtml=c.tag==='tiebreaker'
-        ?`<span class="criterion-tag tag-tiebreaker">tiebreaker</span>`
-        :c.tag==='1.5x'
-        ?`<span class="criterion-tag tag-weight">1.5× weight</span>`
-        :'';
-      return `<div class="criterion-row">
-        <span class="criterion-label">${c.label}${tagHtml}</span>
-        <select class="criterion-select" onchange="updateCriterion('${seg.id}','${wf.id}','${c.key}',this.value,'rubric-card-${seg.id}-${wf.id}')">${opts}</select>
-      </div>`;
-    }).join('');
+    var cRows=CRITERIA.map(function(c){
+      var val=parseInt(scores[c.key])||1;
+      var opts=[1,2,3,4].map(function(n){return'<option value="'+n+'"'+(n===val?" selected":"")+">"+n+"</option>";}).join("");
+      var tagHtml=c.tag==="tiebreaker"?'<span class="criterion-tag tag-tiebreaker">tiebreaker</span>':c.tag==="1.5x"?'<span class="criterion-tag tag-weight">1.5× weight</span>':"";
+      return'<div class="criterion-row"><span class="criterion-label">'+c.label+tagHtml+'</span>'
+        +'<select class="criterion-select" onchange="updateCriterion(\''+seg.id+'\',\''+wf.id+'\',\''+c.key+'\',this.value)">'+opts+'</select></div>';
+    }).join("");
 
-    card.id=`rubric-card-${seg.id}-${wf.id}`;
-    card.innerHTML=`
-      <div class="rubric-row" onclick="toggleRubricDetail('${seg.id}','${wf.id}')">
-        <div class="rubric-left">
-          <span class="rubric-rank">#${idx+1}</span>
-          <span class="rubric-name">${wf.n}</span>
-          <span class="rubric-seg">${seg.title}</span>
-        </div>
-        <div class="rubric-right">
-          <span class="tier-badge ${tierClass(total)}">${tierLabel(total)}</span>
-          <span class="rubric-score" style="color:${scoreColor(total)}">${total.toFixed(1)}</span>
-          <span class="rubric-chevron" id="chev-${seg.id}-${wf.id}">▼</span>
-        </div>
-      </div>
-      <div class="rubric-detail" id="detail-${seg.id}-${wf.id}">
-        ${criteriaRows}
-        <div class="score-bar-wrap">
-          <span class="score-total-label">Total score</span>
-          <div class="score-bar"><div class="score-bar-fill" id="sbar-${seg.id}-${wf.id}" style="width:${pct}%;background:${scoreColor(total)};"></div></div>
-          <span class="score-total-val" id="stotal-${seg.id}-${wf.id}" style="color:${scoreColor(total)}">${total.toFixed(1)} / ${MAX_RAW}</span>
-        </div>
-      </div>`;
+    card.innerHTML='<div class="rubric-row" onclick="toggleDetail(\''+seg.id+'\',\''+wf.id+'\')">'
+      +'<div class="rubric-left"><span class="rubric-rank">#'+(idx+1)+'</span><span class="rubric-name">'+wf.n+'</span><span class="rubric-seg">'+seg.title+'</span></div>'
+      +'<div class="rubric-right"><span class="tier-badge '+tierClass(total)+'" id="rtier-'+seg.id+'-'+wf.id+'">'+tierLabel(total)+'</span>'
+      +'<span class="rubric-score" id="rscore-'+seg.id+'-'+wf.id+'" style="color:'+scoreColor(total)+'">'+total.toFixed(1)+'</span>'
+      +'<span class="rubric-chevron" id="rchev-'+seg.id+'-'+wf.id+'">▼</span></div></div>'
+      +'<div class="rubric-detail" id="rdetail-'+seg.id+'-'+wf.id+'">'+cRows
+      +'<div class="score-bar-wrap"><span class="score-total-label">Total score</span>'
+      +'<div class="score-bar"><div class="score-bar-fill" id="rbar-'+seg.id+'-'+wf.id+'" style="width:'+pct+'%;background:'+scoreColor(total)+';"></div></div>'
+      +'<span class="score-total-val" id="rtotal-'+seg.id+'-'+wf.id+'" style="color:'+scoreColor(total)+'">'+total.toFixed(1)+' / '+MAX_RAW+'</span></div></div>';
     el.appendChild(card);
   });
 }
 
-function toggleRubricDetail(segId,wfId){
-  const detail=document.getElementById(`detail-${segId}-${wfId}`);
-  const chev=document.getElementById(`chev-${segId}-${wfId}`);
-  const open=detail.classList.toggle('open');
-  chev.classList.toggle('open',open);
+function toggleDetail(segId,wfId){
+  var d=document.getElementById("rdetail-"+segId+"-"+wfId);
+  var c=document.getElementById("rchev-"+segId+"-"+wfId);
+  var open=d.classList.toggle("open");
+  if(open){c.classList.add("open");}else{c.classList.remove("open");}
 }
 
 function updateCriterion(segId,wfId,key,val){
-  const scores=loadScores(segId,wfId);
+  var scores=loadRbScores(segId,wfId);
   scores[key]=parseInt(val);
-  saveScores(segId,wfId,scores);
-  // Update score display in place without full re-render
-  const total=calcTotal(scores);
-  const pct=(total/MAX_RAW*100).toFixed(0);
-  const card=document.getElementById(`rubric-card-${segId}-${wfId}`);
-  if(!card)return;
-  const scoreEl=card.querySelector('.rubric-score');
-  const tierEl=card.querySelector('.tier-badge');
-  const barEl=document.getElementById(`sbar-${segId}-${wfId}`);
-  const totalEl=document.getElementById(`stotal-${segId}-${wfId}`);
-  const color=scoreColor(total);
-  if(scoreEl){scoreEl.textContent=total.toFixed(1);scoreEl.style.color=color;}
-  if(tierEl){tierEl.className=`tier-badge ${tierClass(total)}`;tierEl.textContent=tierLabel(total);}
-  if(barEl){barEl.style.width=pct+'%';barEl.style.background=color;}
-  if(totalEl){totalEl.textContent=`${total.toFixed(1)} / ${MAX_RAW}`;totalEl.style.color=color;}
+  saveRbScores(segId,wfId,scores);
+  var total=calcTotal(scores);
+  var pct=(total/MAX_RAW*100).toFixed(0);
+  var color=scoreColor(total);
+  var sc=document.getElementById("rscore-"+segId+"-"+wfId);
+  var ti=document.getElementById("rtier-"+segId+"-"+wfId);
+  var bar=document.getElementById("rbar-"+segId+"-"+wfId);
+  var tot=document.getElementById("rtotal-"+segId+"-"+wfId);
+  if(sc){sc.textContent=total.toFixed(1);sc.style.color=color;}
+  if(ti){ti.className="tier-badge "+tierClass(total);ti.textContent=tierLabel(total);}
+  if(bar){bar.style.width=pct+"%";bar.style.background=color;}
+  if(tot){tot.textContent=total.toFixed(1)+" / "+MAX_RAW;tot.style.color=color;}
 }
 
-
-
-// ─── INIT ──────────────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────────────────────
 initMission();
 renderCalendar();
 renderAchievements();
