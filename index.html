@@ -145,7 +145,39 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .wf-add-btn:hover{border-color:var(--blue);color:var(--blue);}
 .wf-del{font-size:10px;cursor:pointer;color:var(--text3);padding:2px 4px;}
 .wf-del:hover{color:var(--red);}
-@media(max-width:600px){.three-grid,.cal-grid{grid-template-columns:1fr;}.stat-bar{gap:1rem;}}
+/* Rubric */
+.rubric-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:8px;}
+.rubric-legend{display:flex;gap:10px;flex-wrap:wrap;}
+.tier-badge{font-size:10px;padding:2px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
+.tier-high{background:var(--green-bg);color:var(--green);}
+.tier-med{background:var(--amber-bg);color:var(--amber);}
+.tier-low{background:#f0f0f0;color:var(--text2);}
+.rubric-card{border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;background:var(--bg);overflow:hidden;}
+.rubric-row{display:flex;align-items:center;padding:10px 12px;gap:12px;cursor:pointer;justify-content:space-between;}
+.rubric-row:hover{background:var(--bg2);}
+.rubric-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.rubric-rank{font-size:11px;font-weight:500;color:var(--text3);min-width:20px;}
+.rubric-name{font-size:12px;font-weight:500;flex:1;}
+.rubric-seg{font-size:10px;color:var(--text2);white-space:nowrap;}
+.rubric-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.rubric-score{font-size:18px;font-weight:500;min-width:36px;text-align:right;}
+.rubric-chevron{font-size:10px;color:var(--text3);transition:transform .2s;}
+.rubric-chevron.open{transform:rotate(180deg);}
+.rubric-detail{display:none;padding:0 12px 12px;border-top:0.5px solid var(--border);}
+.rubric-detail.open{display:block;}
+.criterion-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--border);}
+.criterion-row:last-child{border-bottom:none;}
+.criterion-label{font-size:11px;color:var(--text);flex:1;}
+.criterion-tag{font-size:9px;padding:1px 6px;border-radius:10px;margin-left:5px;font-weight:500;}
+.tag-tiebreaker{background:var(--amber-bg);color:var(--amber);}
+.tag-weight{background:var(--purple-bg);color:var(--purple);}
+.criterion-select{font-size:11px;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);width:60px;text-align:center;}
+.criterion-select:focus{outline:none;border-color:#378ADD;}
+.score-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:0.5px solid var(--border);}
+.score-bar{height:6px;border-radius:4px;flex:1;background:var(--bg3);overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:4px;transition:width .3s,background .3s;}
+.score-total-label{font-size:10px;color:var(--text2);}
+.score-total-val{font-size:13px;font-weight:500;min-width:40px;text-align:right;}
 </style>
 </head>
 <body>
@@ -155,6 +187,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="tab" onclick="showTab('calendar',this)">Calendar</button>
   <button class="tab" onclick="showTab('achievements',this)">Achievements</button>
   <button class="tab" onclick="showTab('segments',this)">Customer segments</button>
+  <button class="tab" onclick="showTab('rubric',this)">Workflow scoring</button>
 </div>
 
 <!-- MISSION -->
@@ -284,6 +317,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <button class="btn-save" onclick="saveWorkflow()">Save</button>
     </div>
   </div>
+</div>
+
+<!-- RUBRIC -->
+<div id="tab-rubric" class="panel">
+  <div class="rubric-toolbar">
+    <span class="section-label" style="margin:0;">Workflow priority scoring — ranked by total score</span>
+    <div class="rubric-legend">
+      <div class="li"><span class="tier-badge tier-high">High</span> ≥22</div>
+      <div class="li"><span class="tier-badge tier-med">Medium</span> 14–21</div>
+      <div class="li"><span class="tier-badge tier-low">Low</span> &lt;14</div>
+    </div>
+  </div>
+  <div id="rubric-list"></div>
 </div>
 
 <!-- ACHIEVEMENT MODAL -->
@@ -684,6 +730,146 @@ function deleteWorkflow(){
   const seg=segs.find(s=>s.id===segId);
   seg.wfs=seg.wfs.filter(w=>w.id!==wfId);
   save(SK.segments,segs);closeModal('workflow-modal');renderSegments();
+}
+
+// ─── RUBRIC ────────────────────────────────────────────
+const CRITERIA = [
+  {key:"strategic",  label:"Strategic Value of Account",          tag:"tiebreaker", weight:1},
+  {key:"pmf",        label:"Current Product-Market Fit",          tag:null,         weight:1},
+  {key:"asks",       label:"Upcoming Company Asks to Account",    tag:null,         weight:1},
+  {key:"unblocked",  label:"High-Value Workflow Unblocked",       tag:null,         weight:1},
+  {key:"impact",     label:"Impact to Account",                   tag:"tiebreaker", weight:1},
+  {key:"shared",     label:"How Many Other Accounts Share Requirement", tag:"1.5x", weight:1.5},
+  {key:"sales",      label:"Sales Implication + ARR Potential",   tag:"1.5x",       weight:1.5}
+];
+const MAX_RAW = CRITERIA.reduce((s,c)=>s+(4*c.weight),0); // 4*1+4*1+4*1+4*1+4*1+4*1.5+4*1.5 = 28
+
+function wfScoreKey(segId,wfId){return `forge_rubric_${segId}_${wfId}`;}
+
+function loadScores(segId,wfId){
+  try{
+    const v=localStorage.getItem(wfScoreKey(segId,wfId));
+    return v?JSON.parse(v):{};
+  }catch{return {};}
+}
+function saveScores(segId,wfId,scores){
+  try{localStorage.setItem(wfScoreKey(segId,wfId),JSON.stringify(scores));}catch{}
+}
+
+function calcTotal(scores){
+  return CRITERIA.reduce((s,c)=>s+((parseInt(scores[c.key])||1)*c.weight),0);
+}
+
+function tierClass(total){
+  if(total>=22)return'tier-high';
+  if(total>=14)return'tier-med';
+  return'tier-low';
+}
+function tierLabel(total){
+  if(total>=22)return'High';
+  if(total>=14)return'Medium';
+  return'Low';
+}
+function scoreColor(total){
+  const pct=total/MAX_RAW;
+  if(pct>=0.75)return'#639922';
+  if(pct>=0.45)return'#EF9F27';
+  return'#E24B4A';
+}
+
+function renderRubric(){
+  // Collect all workflows across all segments
+  let all=[];
+  segs.forEach(seg=>{
+    seg.wfs.forEach(wf=>{
+      const scores=loadScores(seg.id,wf.id);
+      const total=calcTotal(scores);
+      all.push({seg,wf,scores,total});
+    });
+  });
+  // Sort by total descending
+  all.sort((a,b)=>b.total-a.total);
+
+  const el=document.getElementById('rubric-list');
+  el.innerHTML='';
+  all.forEach((item,idx)=>{
+    const {seg,wf,scores,total}=item;
+    const pct=(total/MAX_RAW*100).toFixed(0);
+    const card=document.createElement('div');
+    card.className='rubric-card';
+
+    const criteriaRows=CRITERIA.map(c=>{
+      const val=scores[c.key]||1;
+      const opts=[1,2,3,4].map(n=>`<option value="${n}"${n===val?' selected':''}>${n}</option>`).join('');
+      const tagHtml=c.tag==='tiebreaker'
+        ?`<span class="criterion-tag tag-tiebreaker">tiebreaker</span>`
+        :c.tag==='1.5x'
+        ?`<span class="criterion-tag tag-weight">1.5× weight</span>`
+        :'';
+      return `<div class="criterion-row">
+        <span class="criterion-label">${c.label}${tagHtml}</span>
+        <select class="criterion-select" onchange="updateCriterion('${seg.id}','${wf.id}','${c.key}',this.value,'rubric-card-${seg.id}-${wf.id}')">${opts}</select>
+      </div>`;
+    }).join('');
+
+    card.id=`rubric-card-${seg.id}-${wf.id}`;
+    card.innerHTML=`
+      <div class="rubric-row" onclick="toggleRubricDetail('${seg.id}','${wf.id}')">
+        <div class="rubric-left">
+          <span class="rubric-rank">#${idx+1}</span>
+          <span class="rubric-name">${wf.n}</span>
+          <span class="rubric-seg">${seg.title}</span>
+        </div>
+        <div class="rubric-right">
+          <span class="tier-badge ${tierClass(total)}">${tierLabel(total)}</span>
+          <span class="rubric-score" style="color:${scoreColor(total)}">${total.toFixed(1)}</span>
+          <span class="rubric-chevron" id="chev-${seg.id}-${wf.id}">▼</span>
+        </div>
+      </div>
+      <div class="rubric-detail" id="detail-${seg.id}-${wf.id}">
+        ${criteriaRows}
+        <div class="score-bar-wrap">
+          <span class="score-total-label">Total score</span>
+          <div class="score-bar"><div class="score-bar-fill" id="sbar-${seg.id}-${wf.id}" style="width:${pct}%;background:${scoreColor(total)};"></div></div>
+          <span class="score-total-val" id="stotal-${seg.id}-${wf.id}" style="color:${scoreColor(total)}">${total.toFixed(1)} / ${MAX_RAW}</span>
+        </div>
+      </div>`;
+    el.appendChild(card);
+  });
+}
+
+function toggleRubricDetail(segId,wfId){
+  const detail=document.getElementById(`detail-${segId}-${wfId}`);
+  const chev=document.getElementById(`chev-${segId}-${wfId}`);
+  const open=detail.classList.toggle('open');
+  chev.classList.toggle('open',open);
+}
+
+function updateCriterion(segId,wfId,key,val){
+  const scores=loadScores(segId,wfId);
+  scores[key]=parseInt(val);
+  saveScores(segId,wfId,scores);
+  // Update score display in place without full re-render
+  const total=calcTotal(scores);
+  const pct=(total/MAX_RAW*100).toFixed(0);
+  const card=document.getElementById(`rubric-card-${segId}-${wfId}`);
+  if(!card)return;
+  const scoreEl=card.querySelector('.rubric-score');
+  const tierEl=card.querySelector('.tier-badge');
+  const barEl=document.getElementById(`sbar-${segId}-${wfId}`);
+  const totalEl=document.getElementById(`stotal-${segId}-${wfId}`);
+  const color=scoreColor(total);
+  if(scoreEl){scoreEl.textContent=total.toFixed(1);scoreEl.style.color=color;}
+  if(tierEl){tierEl.className=`tier-badge ${tierClass(total)}`;tierEl.textContent=tierLabel(total);}
+  if(barEl){barEl.style.width=pct+'%';barEl.style.background=color;}
+  if(totalEl){totalEl.textContent=`${total.toFixed(1)} / ${MAX_RAW}`;totalEl.style.color=color;}
+}
+
+// Re-render rubric when tab is opened so new workflows appear
+const _origShowTab=showTab;
+function showTab(name,btn){
+  _origShowTab(name,btn);
+  if(name==='rubric')renderRubric();
 }
 
 // ─── INIT ──────────────────────────────────────────────
