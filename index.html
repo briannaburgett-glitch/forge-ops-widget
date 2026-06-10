@@ -117,7 +117,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .cr-in{width:100%;}
 .wf-add-btn{font-size:10px;padding:2px 10px;border-radius:20px;border:0.5px dashed var(--border2);color:var(--text2);background:transparent;cursor:pointer;margin:4px 7px;}
 .wf-add-btn:hover{border-color:var(--blue);color:var(--blue);}
-/* Prioritized Workflows */
+/* Team phases */
+.phase-grid{display:flex;flex-direction:column;gap:12px;}
+.phase-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;background:var(--bg);}
+.phase-header{display:flex;align-items:center;gap:12px;padding:1rem 1.25rem;border-bottom:0.5px solid var(--border);}
+.phase-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+.ph1{background:var(--blue-bg);color:var(--blue);}
+.ph2{background:var(--purple-bg);color:var(--purple);}
+.ph3{background:var(--green-bg);color:var(--green);}
+.ph4{background:var(--amber-bg);color:var(--amber);}
+.phase-title-wrap{flex:1;}
+.phase-title{font-size:14px;font-weight:500;}
+.phase-timing{font-size:10px;color:var(--text2);margin-top:1px;}
+.phase-body{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;}
+.phase-col{padding:.9rem 1.25rem;border-right:0.5px solid var(--border);}
+.phase-col:last-child{border-right:none;}
+.phase-col-label{font-size:9px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--text2);margin-bottom:.5rem;}
+.phase-col-body{font-size:11px;color:var(--text);line-height:1.7;}
+.team-pill{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px;margin:2px 2px 2px 0;background:var(--bg2);border:0.5px solid var(--border2);color:var(--text);}
+.prereq-item{font-size:11px;color:var(--text2);line-height:1.6;padding-left:.75rem;position:relative;}
+.prereq-item::before{content:"→";position:absolute;left:0;color:var(--text3);}
+.outcome-box{background:var(--bg2);border-radius:0 0 var(--radius-lg) var(--radius-lg);border-top:0.5px solid var(--border);padding:.75rem 1.25rem;display:flex;align-items:flex-start;gap:8px;}
+.outcome-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
+.outcome-text{font-size:11px;color:var(--text);line-height:1.6;}
+.outcome-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-right:6px;}
+@media(max-width:600px){.phase-body{grid-template-columns:1fr;}.phase-col{border-right:none;border-bottom:0.5px solid var(--border);}.phase-col:last-child{border-bottom:none;}}
 .pw-desc{font-size:12px;color:var(--text2);line-height:1.7;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:.9rem 1rem;margin-bottom:1.25rem;}
 .pw-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1rem;background:var(--bg);}
 .pw-card:hover{background:var(--bg2);}
@@ -236,13 +260,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 </div>
 
-<!-- ACHIEVEMENTS -->
+<!-- TEAM -->
 <div id="tab-achievements" class="panel">
-  <div class="toolbar">
-    <span class="section-label" style="margin:0;">Forge achievements</span>
-    <button class="add-btn" onclick="openAchievementModal()">+ Log achievement</button>
-  </div>
-  <div id="ach-list"></div>
+  <div id="team-phases"></div>
 </div>
 
 <!-- SEGMENTS -->
@@ -458,6 +478,8 @@ function showTab(name,btn){
   document.getElementById("tab-"+name).classList.add("active");
   btn.classList.add("active");
   if(name==="rubric"){renderRubric();}
+  if(name==="achievements"){renderTeam();}
+  if(name==="pworkflows"){renderPw();}
 }
 
 // ── GLOBAL STATS ──────────────────────────────────────────────────────────────
@@ -805,7 +827,61 @@ function updateCriterion(segId,wfId,key,val){
   if(tot){tot.textContent=total.toFixed(1)+" / "+MAX_RAW;tot.style.color=color;}
 }
 
-// ── PRIORITIZED WORKFLOWS ─────────────────────────────────────────────────────
+function renderTeam(){
+  var phases=[
+    {
+      num:"1",cls:"ph1",
+      title:"Strategic Evaluation",
+      timing:"Week 2 of each quarter",
+      prereq:["Each customer segment provides inputs on their top four workflows — completed in week 1 of the QTR"],
+      team:["Forge Team","Head of CR","Head of Sales","Heads of Product"],
+      outcome:"The team completes the workflow scoring rubric across all segments, evaluating strategic value, account impact, cross-account replication, and roadmap alignment to identify the top priority workflows for the quarter."
+    },
+    {
+      num:"2",cls:"ph2",
+      title:"Quarterly Sync",
+      timing:"Week 4 of each quarter",
+      prereq:["Heads of Product determine squad assignments and resource allocation","CR SMEs appropriate for each effort are identified and begin their product ops rotation"],
+      team:["Forge Team","Heads of Product","Squad Leads","CR SMEs"],
+      outcome:"Squads refine the scope of work for the three priority workflows and establish a clear plan of action. CR SMEs are aligned to each squad and their rotation begins."
+    },
+    {
+      num:"3",cls:"ph3",
+      title:"Development",
+      timing:"Months 2–3 of the quarter",
+      prereq:["Quarterly Sync complete","Squad assignments confirmed","CR SME rotations active"],
+      team:["Product Squads","CR SMEs (Prod Ops rotation)"],
+      outcome:"Product build is completed and shipped. CR SMEs support squads throughout development, providing operational context, reviewing builds against real workflow requirements, and validating output before release."
+    },
+    {
+      num:"4",cls:"ph4",
+      title:"Workflow Validation & Templates",
+      timing:"Ongoing",
+      prereq:["New capability shipped by squads","Account teams notified and enabled"],
+      team:["Account Teams","Global Delivery Team (GDT)"],
+      outcome:"Accounts integrate the new capability and codify the workflow. GDT develops the Smartbook entry, links the new templates to the catalogue, and deploys them in upcoming pilots and onboarding to accelerate time to value."
+    }
+  ];
+
+  var el=document.getElementById('team-phases');
+  el.innerHTML='<div class="section-label" style="margin-bottom:.75rem;">Forge operating rhythm — quarterly phases</div><div class="phase-grid">'+
+  phases.map(function(p){
+    var teamPills=p.team.map(function(t){return'<span class="team-pill">'+t+'</span>';}).join('');
+    var prereqItems=p.prereq.map(function(r){return'<div class="prereq-item">'+r+'</div>';}).join('');
+    return'<div class="phase-card">'+
+      '<div class="phase-header">'+
+        '<div class="phase-num '+p.cls+'">'+p.num+'</div>'+
+        '<div class="phase-title-wrap"><div class="phase-title">'+p.title+'</div><div class="phase-timing">'+p.timing+'</div></div>'+
+      '</div>'+
+      '<div class="phase-body">'+
+        '<div class="phase-col"><div class="phase-col-label">Team</div><div class="phase-col-body">'+teamPills+'</div></div>'+
+        '<div class="phase-col"><div class="phase-col-label">Prerequisites</div><div class="phase-col-body">'+prereqItems+'</div></div>'+
+        '<div class="phase-col"><div class="phase-col-label">Timing</div><div class="phase-col-body" style="color:var(--text2);">'+p.timing+'</div></div>'+
+      '</div>'+
+      '<div class="outcome-box"><span class="outcome-icon">✓</span><div class="outcome-text"><span class="outcome-label">Outcome</span>'+p.outcome+'</div></div>'+
+    '</div>';
+  }).join('')+'</div>';
+}
 var DEFAULT_PWORKFLOWS=[
   {id:"pw1",title:"CONPLAN / OPLAN",desc:"End-to-end contingency and operation plan development workflow — from commander's intent and mission analysis through course of action development, wargaming, and final plan production. Targets CCMDs and Joint Staff where Onebrief can become the definitive planning tool for the most consequential operational documents a command produces.",quarter:"Q1",squad:"",crSme:""},
   {id:"pw2",title:"Tactical — Full MDMP",desc:"Complete Military Decision Making Process execution at the Corps and Division level — covering receipt of mission through orders production and dissemination. Validates Onebrief as the end-to-end planning platform for Army and USMC tactical headquarters, reducing dependence on PowerPoint and disconnected tools across staff sections.",quarter:"Q2",squad:"",crSme:""},
@@ -874,7 +950,7 @@ function deletePw(){
 // ── INIT ──────────────────────────────────────────────────────────────────────
 initMission();
 renderCalendar();
-renderAchievements();
+renderTeam();
 renderSegments();
 renderPw();
 </script>
