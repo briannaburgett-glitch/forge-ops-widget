@@ -364,7 +364,7 @@ var DEFAULT_MILESTONES=[
   {id:"ms11",name:"Year-end review",date:"2026-12-15",category:"Review",status:"Upcoming",notes:""}
 ];
 var DEFAULT_SEGS=[
-  {id:"cocom",title:"Operational / COCOM",sub:"Geographic and functional combatant commands · strategic-operational level",
+  {id:"cocom",title:"Operational & Strategic / Joint Staff and CCMDs",sub:"Geographic and functional combatant commands · strategic-operational level",
    accounts:[{id:"a1",n:"US Joint Staff",a:"7.5",s:"contracted"},{id:"a2",n:"US Central Command",a:"2.4",s:"contracted"},{id:"a3",n:"Pacific Air Forces",a:"0.6",s:"contracted"},{id:"a4",n:"Pacific Fleet",a:"0.6",s:"contracted"},{id:"a5",n:"Naval Forces Europe",a:"1.6",s:"contracted"},{id:"a6",n:"603d AOC",a:"0.35",s:"contracted"},{id:"a7",n:"USTRANSCOM",a:"",s:"pipeline"},{id:"a8",n:"NORTHCOM",a:"",s:"pipeline"},{id:"a9",n:"USEUCOM",a:"",s:"pipeline"},{id:"a10",n:"CBP-OFO",a:"",s:"pipeline"},{id:"a11",n:"USSOCOM",a:"",s:"pipeline"},{id:"a12",n:"USSOUTHCOM",a:"",s:"pipeline"},{id:"a13",n:"USCENTCOM (FoC)",a:"",s:"pipeline"},{id:"a14",n:"NAVEUR AtomEngine",a:"",s:"pipeline"},{id:"a15",n:"PACAF",a:"",s:"pipeline"}],
    wfs:[{id:"w1",n:"OPORD / WARNO production",p:72,art:"—",cr:""},{id:"w2",n:"GIE / CPX planning & execution",p:55,art:"—",cr:""},{id:"w3",n:"Battle Update Assessment (BUA)",p:68,art:"—",cr:""},{id:"w4",n:"Campaign plan synchronization",p:40,art:"—",cr:""}]},
   {id:"tac",title:"Tactical / Corps & Division",sub:"Army, USMC, and joint HQs below COCOM — Corps, Division, MEF",
@@ -671,13 +671,10 @@ function deleteWorkflow(){
 
 // ── RUBRIC ────────────────────────────────────────────────────────────────────
 var CRITERIA=[
-  {key:"strategic", label:"Strategic Value of Account",           tag:"tiebreaker", weight:1},
+  {key:"strategic", label:"Strategic Value of Account (ARR potential, strategic alignment to DoD priorities, senior leader sponsorship, pipeline influence)", tag:"tiebreaker", weight:1},
   {key:"pmf",       label:"Current Product-Market Fit",           tag:null,         weight:1},
-  {key:"asks",      label:"Upcoming Company Asks to Account",     tag:null,         weight:1},
-  {key:"unblocked", label:"High-Value Workflow Unblocked",        tag:null,         weight:1},
-  {key:"impact",    label:"Impact to Account",                    tag:"tiebreaker", weight:1},
-  {key:"shared",    label:"How Many Other Accounts Share Requirement", tag:"1.5x",  weight:1.5},
-  {key:"sales",     label:"Sales Implication + ARR Potential",    tag:"1.5x",       weight:1.5}
+  {key:"asks",      label:"Upcoming Company Asks to Account (e.g. JWCC memo, ATO, support for CtFs)", tag:null, weight:1},
+  {key:"shared",    label:"Other Accounts Impacted",              tag:"1.5x",       weight:1.5}
 ];
 var MAX_RAW=CRITERIA.reduce(function(s,c){return s+(4*c.weight);},0);
 
