@@ -212,12 +212,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div id="cal-grid" class="cal-grid"></div>
   <div class="cal-legend">
     <div class="li"><div class="ld" style="background:var(--blue);"></div>Sprint</div>
-    <div class="li"><div class="ld" style="background:var(--green);"></div>Review / release</div>
-    <div class="li"><div class="ld" style="background:var(--purple);"></div>Planning</div>
-    <div class="li"><div class="ld" style="background:var(--amber);"></div>Onboarding</div>
-    <div class="li"><div class="ld" style="background:var(--text3);"></div>Upcoming</div>
-    <div class="li"><div class="ld" style="background:var(--yellow);"></div>In progress</div>
-    <div class="li"><div class="ld" style="background:var(--pmf-green);"></div>Complete</div>
+    <div class="li"><div class="ld" style="background:var(--green);"></div>Qrtly Sync — Strategic Development</div>
+    <div class="li"><div class="ld" style="background:var(--purple);"></div>Template Development</div>
   </div>
 </div>
 
@@ -261,13 +257,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="modal">
     <h3 id="ms-modal-title">Add milestone</h3>
     <div class="form-row"><label class="form-label">Name</label><input class="form-input" id="ms-name" placeholder="e.g. Smartbook v2 release"></div>
-    <div class="form-row"><label class="form-label">Date</label><input class="form-input" id="ms-date" type="date"></div>
+    <div class="form-row"><label class="form-label">Start date</label><input class="form-input" id="ms-date" type="date"></div>
+    <div class="form-row"><label class="form-label">End date</label><input class="form-input" id="ms-date-end" type="date"></div>
     <div class="form-row"><label class="form-label">Category</label>
-      <select class="form-select" id="ms-category"><option>Sprint</option><option>Review</option><option>Planning</option><option>Onboarding</option></select>
+      <select class="form-select" id="ms-category"><option>Sprint</option><option>Qrtly Sync — Strategic Development</option><option>Template Development</option></select>
     </div>
-    <div class="form-row"><label class="form-label">Status</label>
-      <select class="form-select" id="ms-status"><option>Upcoming</option><option>In Progress</option><option>Complete</option></select>
-    </div>
+    <div class="form-row"><label class="form-label">Participants</label><textarea class="form-input" id="ms-participants" rows="2" placeholder="Names or teams involved"></textarea></div>
+    <div class="form-row"><label class="form-label">Outcomes</label><textarea class="form-input" id="ms-outcomes" rows="2" placeholder="Expected or actual outcomes"></textarea></div>
     <div class="form-row"><label class="form-label">Notes</label><input class="form-input" id="ms-notes" placeholder="Optional"></div>
     <div class="modal-actions">
       <button class="btn-danger" id="ms-delete-btn" style="display:none;" onclick="deleteMilestone()">Delete</button>
@@ -459,7 +455,11 @@ var CAL_MONTHS=[
   {label:"Oct 2026",prefix:"2026-10"},{label:"Nov 2026",prefix:"2026-11"},
   {label:"Dec 2026",prefix:"2026-12"}
 ];
-var CAT_CLASS={Sprint:"sprint-tag",Review:"review-tag",Planning:"planning-tag",Onboarding:"onboard-tag"};
+var CAT_CLASS={
+  "Sprint":"sprint-tag",
+  "Qrtly Sync — Strategic Development":"review-tag",
+  "Template Development":"planning-tag"
+};
 
 function renderCalendar(){
   var grid=document.getElementById("cal-grid");grid.innerHTML="";
@@ -471,7 +471,7 @@ function renderCalendar(){
       var cls=CAT_CLASS[ev.category]||"sprint-tag";
       var sc="s-"+(ev.status||"Upcoming").replace(" ","-");
       h+='<div class="cal-event '+cls+'" onclick="openEditMilestone(\''+ev.id+'\')">'
-        +'<span><span class="status-dot '+sc+'"></span>'+ev.name+'</span>'
+        +'<span>'+ev.name+(ev.dateEnd?' → '+ev.dateEnd.slice(5):'')+'</span>'
         +'<span class="ev-del" onclick="event.stopPropagation();confirmDelMs(\''+ev.id+'\')">✕</span>'
         +'</div>';
     });
@@ -483,8 +483,10 @@ function openMilestoneModal(){
   document.getElementById("ms-modal-title").textContent="Add milestone";
   document.getElementById("ms-name").value="";
   document.getElementById("ms-date").value="2026-06-01";
+  document.getElementById("ms-date-end").value="";
   document.getElementById("ms-category").value="Sprint";
-  document.getElementById("ms-status").value="Upcoming";
+  document.getElementById("ms-participants").value="";
+  document.getElementById("ms-outcomes").value="";
   document.getElementById("ms-notes").value="";
   document.getElementById("ms-delete-btn").style.display="none";
   document.getElementById("milestone-modal").classList.add("open");
@@ -495,14 +497,16 @@ function openEditMilestone(id){
   document.getElementById("ms-modal-title").textContent="Edit milestone";
   document.getElementById("ms-name").value=ms.name;
   document.getElementById("ms-date").value=ms.date;
+  document.getElementById("ms-date-end").value=ms.dateEnd||"";
   document.getElementById("ms-category").value=ms.category;
-  document.getElementById("ms-status").value=ms.status;
+  document.getElementById("ms-participants").value=ms.participants||"";
+  document.getElementById("ms-outcomes").value=ms.outcomes||"";
   document.getElementById("ms-notes").value=ms.notes||"";
   document.getElementById("ms-delete-btn").style.display="inline";
   document.getElementById("milestone-modal").classList.add("open");
 }
 function saveMilestone(){
-  var ms={id:editingMsId||uid(),name:document.getElementById("ms-name").value.trim(),date:document.getElementById("ms-date").value,category:document.getElementById("ms-category").value,status:document.getElementById("ms-status").value,notes:document.getElementById("ms-notes").value.trim()};
+  var ms={id:editingMsId||uid(),name:document.getElementById("ms-name").value.trim(),date:document.getElementById("ms-date").value,dateEnd:document.getElementById("ms-date-end").value,category:document.getElementById("ms-category").value,participants:document.getElementById("ms-participants").value.trim(),outcomes:document.getElementById("ms-outcomes").value.trim(),notes:document.getElementById("ms-notes").value.trim()};
   if(!ms.name||!ms.date)return;
   if(editingMsId){milestones=milestones.map(function(m){return m.id===editingMsId?ms:m;});}
   else{milestones.push(ms);}
@@ -672,7 +676,7 @@ function deleteWorkflow(){
 // ── RUBRIC ────────────────────────────────────────────────────────────────────
 var CRITERIA=[
   {key:"strategic", label:"Strategic Value of Account (ARR potential, strategic alignment to DoD priorities, senior leader sponsorship, pipeline influence)", tag:"tiebreaker", weight:1},
-  {key:"pmf",       label:"Current Product-Market Fit",           tag:null,         weight:1},
+  {key:"impact",     label:"Impact to Account (renewal risk, expansion potential, etc.)", tag:null, weight:1},
   {key:"asks",      label:"Upcoming Company Asks to Account (e.g. JWCC memo, ATO, support for CtFs)", tag:null, weight:1},
   {key:"shared",    label:"Other Accounts Impacted",              tag:"1.5x",       weight:1.5}
 ];
