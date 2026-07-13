@@ -150,47 +150,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .pw-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
 .pw-chip{font-size:10px;padding:2px 9px;border-radius:20px;font-weight:500;}
 .pw-q{background:var(--blue-bg);color:var(--blue);}
+.pw-q-active{background:var(--green-bg);color:var(--green);}
 .pw-squad{background:var(--purple-bg);color:var(--purple);}
 .pw-cr{background:var(--green-bg);color:var(--green);}
 .pw-body{font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:.75rem;}
-.pw-reforge{font-size:11px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:not-allowed;opacity:.6;}
+.pw-gap-btn{font-size:11px;padding:4px 12px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--blue);cursor:pointer;text-decoration:none;display:inline-block;}
+.pw-gap-btn:hover{background:var(--blue-bg);}
+.pw-gap-edit-icon{font-size:11px;padding:3px 8px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;margin-left:4px;}
+.pw-gap-input{font-size:11px;padding:4px 8px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);width:220px;}
+.pw-gap-save{font-size:11px;padding:4px 10px;border-radius:20px;border:none;background:#378ADD;color:#fff;cursor:pointer;margin-left:4px;}
+.pw-gap-cancel{font-size:11px;padding:4px 10px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;margin-left:4px;}
 .pw-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:.75rem;}
 .pw-field{display:flex;flex-direction:column;gap:3px;}
 .pw-field-label{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);}
 .pw-field-val{font-size:11px;color:var(--text);}
 .pw-empty{text-align:center;padding:2.5rem;color:var(--text2);font-size:12px;}
-/* pw modal uses existing modal styles */
-.rubric-legend{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-.tier-badge{font-size:10px;padding:2px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
-.tier-high{background:var(--green-bg);color:var(--green);}
-.tier-med{background:var(--amber-bg);color:var(--amber);}
-.tier-low{background:var(--bg3);color:var(--text2);}
-.rubric-card{border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:8px;background:var(--bg);overflow:hidden;}
-.rubric-row{display:flex;align-items:center;padding:10px 12px;gap:12px;cursor:pointer;justify-content:space-between;}
-.rubric-row:hover{background:var(--bg2);}
-.rubric-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
-.rubric-rank{font-size:11px;font-weight:500;color:var(--text3);min-width:20px;}
-.rubric-name{font-size:12px;font-weight:500;flex:1;}
-.rubric-seg{font-size:10px;color:var(--text2);white-space:nowrap;}
-.rubric-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.rubric-score{font-size:18px;font-weight:500;min-width:36px;text-align:right;}
-.rubric-chevron{font-size:10px;color:var(--text3);transition:transform .2s;display:inline-block;}
-.rubric-chevron.open{transform:rotate(180deg);}
-.rubric-detail{display:none;padding:0 12px 12px;border-top:0.5px solid var(--border);}
-.rubric-detail.open{display:block;}
-.criterion-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--border);}
-.criterion-row:last-child{border-bottom:none;}
-.criterion-label{font-size:11px;color:var(--text);flex:1;}
-.criterion-tag{font-size:9px;padding:1px 6px;border-radius:10px;margin-left:5px;font-weight:500;}
-.tag-tiebreaker{background:var(--amber-bg);color:var(--amber);}
-.tag-weight{background:var(--purple-bg);color:var(--purple);}
-.criterion-select{font-size:11px;padding:3px 6px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);width:60px;}
-.criterion-select:focus{outline:none;border-color:#378ADD;}
-.score-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:8px;border-top:0.5px solid var(--border);}
-.score-bar{height:6px;border-radius:4px;flex:1;background:var(--bg3);overflow:hidden;}
-.score-bar-fill{height:100%;border-radius:4px;transition:width .3s,background .3s;}
-.score-total-label{font-size:10px;color:var(--text2);}
-.score-total-val{font-size:13px;font-weight:500;min-width:52px;text-align:right;}
+.editable-box .mission-text{white-space:pre-wrap;}
 /* Modal */
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:100;align-items:center;justify-content:center;}
 .modal-backdrop.open{display:flex;}
@@ -215,7 +190,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button class="tab"        id="tab-btn-calendar"  onclick="showTab('calendar',this)">Calendar</button>
   <button class="tab"        id="tab-btn-achievements" onclick="showTab('achievements',this)">Team</button>
   <button class="tab"        id="tab-btn-segments"  onclick="showTab('segments',this)">Customer segments</button>
-  <button class="tab"        id="tab-btn-rubric"    onclick="showTab('rubric',this)">Workflow scoring</button>
   <button class="tab"        id="tab-btn-pworkflows" onclick="showTab('pworkflows',this)">Prioritized Workflows</button>
 </div>
 
@@ -232,17 +206,43 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="saved-flash" id="mission-flash">Saved ✓</span>
     </div>
   </div>
+
+  <div class="mission-box editable-box">
+    <div class="section-label">How This Works</div>
+    <div id="howItWorks-display" class="mission-text"></div>
+    <textarea id="howItWorks-edit" class="mission-edit" style="display:none;"></textarea>
+    <div>
+      <button class="edit-btn" id="howItWorks-edit-btn" onclick="startEdit('howItWorks')">Edit</button>
+      <button class="save-btn" id="howItWorks-save-btn" style="display:none;" onclick="saveEdit('howItWorks')">Save</button>
+      <button class="cancel-btn" id="howItWorks-cancel-btn" style="display:none;" onclick="cancelEdit('howItWorks')">Cancel</button>
+      <span class="saved-flash" id="howItWorks-flash">Saved ✓</span>
+    </div>
+  </div>
+
   <div class="stat-bar">
     <div class="stat"><span class="stat-label">Total ARR (contracted)</span><span class="stat-val" style="color:var(--blue);" id="global-arr">—</span></div>
     <div class="stat"><span class="stat-label">Accounts under contract</span><span class="stat-val" style="color:var(--pmf-green);" id="global-contracted">—</span></div>
     <div class="stat"><span class="stat-label">Accounts in pipeline</span><span class="stat-val" style="color:var(--amber);" id="global-pipeline">—</span></div>
     <div class="stat"><span class="stat-label">Segments</span><span class="stat-val" style="color:var(--text2);">6</span></div>
   </div>
+
   <div class="section-label" style="margin-bottom:.75rem;">Three efforts, one goal</div>
   <div class="three-grid">
     <div class="three-card"><div class="three-card-title">Smartbook Catalogue</div><div class="three-card-body">Curated library of validated workflows and templates. New commands stop starting from zero.</div><div style="margin-top:8px;"><a href="https://app.notion.com/p/onebrief/Onebrief-Smartbook-Forge-Database-37ae3bddbaa880299008f2ffebe05e53" target="_blank" style="font-size:10px;padding:3px 10px;border-radius:20px;border:0.5px solid var(--border2);background:var(--bg);color:var(--blue);text-decoration:none;display:inline-block;">View Smartbook →</a></div></div>
     <div class="three-card"><div class="three-card-title">Workflow Forge</div><div class="three-card-body">Evaluates the highest-value strategic opportunities for the company, aligns them to the product roadmap, and synchronizes CR SMEs to deliberately support the squads developing each capability.</div></div>
     <div class="three-card"><div class="three-card-title">Global Delivery Team</div><div class="three-card-body">Maintains the Smartbook as the living standard. As new product capabilities are released and accounts integrate them as workflows, GDT updates the Smartbook as account teams codify new workflows — then draws on that growing library of templates when supporting pilots and onboarding.</div></div>
+  </div>
+
+  <div class="mission-box editable-box" style="margin-top:1.25rem;">
+    <div class="section-label">Alignment with Product Vision</div>
+    <div id="productVision-display" class="mission-text"></div>
+    <textarea id="productVision-edit" class="mission-edit" style="display:none;"></textarea>
+    <div>
+      <button class="edit-btn" id="productVision-edit-btn" onclick="startEdit('productVision')">Edit</button>
+      <button class="save-btn" id="productVision-save-btn" style="display:none;" onclick="saveEdit('productVision')">Save</button>
+      <button class="cancel-btn" id="productVision-cancel-btn" style="display:none;" onclick="cancelEdit('productVision')">Cancel</button>
+      <span class="saved-flash" id="productVision-flash">Saved ✓</span>
+    </div>
   </div>
 </div>
 
@@ -276,19 +276,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="li"><div class="ld" style="background:var(--bg2);border:1px solid var(--border2);"></div>Pipeline</div>
   </div>
   <div id="segments"></div>
-</div>
-
-<!-- RUBRIC -->
-<div id="tab-rubric" class="panel">
-  <div class="toolbar">
-    <span class="section-label" style="margin:0;">Workflow priority scoring — ranked by total score</span>
-    <div class="rubric-legend">
-      <div class="li"><span class="tier-badge tier-high">High</span>&nbsp;≥22</div>
-      <div class="li"><span class="tier-badge tier-med">Medium</span>&nbsp;14–21</div>
-      <div class="li"><span class="tier-badge tier-low">Low</span>&nbsp;&lt;14</div>
-    </div>
-  </div>
-  <div id="rubric-list"></div>
 </div>
 
 <!-- PRIORITIZED WORKFLOWS -->
@@ -477,7 +464,6 @@ function showTab(name,btn){
   document.querySelectorAll(".panel").forEach(function(p){p.classList.remove("active");});
   document.getElementById("tab-"+name).classList.add("active");
   btn.classList.add("active");
-  if(name==="rubric"){renderRubric();}
   if(name==="achievements"){renderTeam();}
   if(name==="pworkflows"){renderPw();}
 }
@@ -518,6 +504,47 @@ function saveMission(){
   lsSet(SK.mission,mission);
   document.getElementById("mission-display").textContent=mission;
   cancelMissionEdit();flash("mission-flash");
+}
+
+// ── GENERIC EDITABLE SECTIONS ────────────────────────────────────────────────
+var EDITABLES={
+  howItWorks:{
+    key:'forge_how_it_works',
+    default:"Forge Ops team identifies strategic workflows where Onebrief could win, packages the product gap analysis, and lines up the right CR SMEs.\n\nProduct completes the strategic prioritization and decides where each project lands in the roadmap. The \"sprints\" are the lead-up to each distinct workflow, same CR SMEs, plus whichever Prod PM leads the squad building it."
+  },
+  productVision:{
+    key:'forge_product_vision',
+    default:"Forge is CR's primary mechanism for operationalizing the product vision at the account level, specifically, identifying and surfacing the highest-value workflows and opportunities that map directly to Product's prioritization stack. The vision establishes a clear hierarchy (J5/J35 first, followed by J3, J7, J4, J2, and specialty staffs), and our Forge recommendations should mirror that order. Every workflow we surface should be evaluated against the product vision's north star: does this make Onebrief mission essential, not mission enhancing?\n\nSince the next 90 days of product prioritization are largely set, the goal is to have our top recommendations developed by early August, giving Product the lead time to build for next year. We can then coordinate with the appropriate cross-functional teams to stand up the first sync (late Aug-early Sep)."
+  }
+};
+var editableValues={};
+function initEditable(name){
+  var cfg=EDITABLES[name];
+  editableValues[name]=lsGet(cfg.key,cfg.default);
+  document.getElementById(name+"-display").textContent=editableValues[name];
+}
+function startEdit(name){
+  document.getElementById(name+"-edit").value=editableValues[name];
+  document.getElementById(name+"-display").style.display="none";
+  document.getElementById(name+"-edit").style.display="block";
+  document.getElementById(name+"-edit-btn").style.display="none";
+  document.getElementById(name+"-save-btn").style.display="inline";
+  document.getElementById(name+"-cancel-btn").style.display="inline";
+}
+function cancelEdit(name){
+  document.getElementById(name+"-display").style.display="block";
+  document.getElementById(name+"-edit").style.display="none";
+  document.getElementById(name+"-edit-btn").style.display="inline";
+  document.getElementById(name+"-save-btn").style.display="none";
+  document.getElementById(name+"-cancel-btn").style.display="none";
+}
+function saveEdit(name){
+  var val=document.getElementById(name+"-edit").value.trim();
+  editableValues[name]=val;
+  lsSet(EDITABLES[name].key,val);
+  document.getElementById(name+"-display").textContent=val;
+  cancelEdit(name);
+  flash(name+"-flash");
 }
 
 // ── CALENDAR ──────────────────────────────────────────────────────────────────
@@ -591,6 +618,7 @@ function deleteMilestone(){if(editingMsId)confirmDelMs(editingMsId);closeModal("
 var VT_CLASS={"Increased Usage":"vt-green","Workflow Captured":"vt-blue","Account Closed":"vt-purple","Product Fix Shipped":"vt-orange","Onboarding Accelerated":"vt-yellow"};
 function renderAchievements(){
   var el=document.getElementById("ach-list");
+  if(!el)return;
   if(!achievements.length){el.innerHTML='<div class="empty-state">No achievements logged yet.<br>Hit "+ Log achievement" to record your first win.</div>';return;}
   var sorted=achievements.slice().sort(function(a,b){return(b.date||"").localeCompare(a.date||"");});
   el.innerHTML=sorted.map(function(a){
@@ -745,88 +773,7 @@ function deleteWorkflow(){
   lsSet(SK.segments,segs);closeModal("workflow-modal");renderSegments();
 }
 
-// ── RUBRIC ────────────────────────────────────────────────────────────────────
-var CRITERIA=[
-  {key:"strategic", label:"Strategic Value of Account (ARR potential, strategic alignment to DoD priorities, senior leader sponsorship, pipeline influence)", tag:"tiebreaker", weight:1},
-  {key:"impact",     label:"Impact to Account (renewal risk, expansion potential, etc.)", tag:null, weight:1},
-  {key:"asks",      label:"Upcoming Company Asks to Account (e.g. JWCC memo, ATO, support for CtFs)", tag:null, weight:1},
-  {key:"shared",    label:"Other Accounts Impacted",              tag:"1.5x",       weight:1.5}
-];
-var MAX_RAW=CRITERIA.reduce(function(s,c){return s+(4*c.weight);},0);
-
-function rbKey(segId,wfId){return"forge_rb_"+segId+"_"+wfId;}
-function loadRbScores(segId,wfId){return lsGet(rbKey(segId,wfId),{});}
-function saveRbScores(segId,wfId,scores){lsSet(rbKey(segId,wfId),scores);}
-
-function calcTotal(scores){
-  return CRITERIA.reduce(function(s,c){return s+((parseInt(scores[c.key])||1)*c.weight);},0);
-}
-function tierClass(t){return t>=22?"tier-high":t>=14?"tier-med":"tier-low";}
-function tierLabel(t){return t>=22?"High":t>=14?"Medium":"Low";}
-function scoreColor(t){var p=t/MAX_RAW;return p>=0.75?"#639922":p>=0.45?"#EF9F27":"#E24B4A";}
-
-function renderRubric(){
-  var all=[];
-  segs.forEach(function(seg){
-    seg.wfs.forEach(function(wf){
-      var scores=loadRbScores(seg.id,wf.id);
-      var total=calcTotal(scores);
-      all.push({seg:seg,wf:wf,scores:scores,total:total});
-    });
-  });
-  all.sort(function(a,b){return b.total-a.total;});
-
-  var el=document.getElementById("rubric-list");el.innerHTML="";
-  all.forEach(function(item,idx){
-    var seg=item.seg,wf=item.wf,scores=item.scores,total=item.total;
-    var pct=(total/MAX_RAW*100).toFixed(0);
-    var card=document.createElement("div");card.className="rubric-card";card.id="rc-"+seg.id+"-"+wf.id;
-
-    var cRows=CRITERIA.map(function(c){
-      var val=parseInt(scores[c.key])||1;
-      var opts=[1,2,3,4].map(function(n){return'<option value="'+n+'"'+(n===val?" selected":"")+">"+n+"</option>";}).join("");
-      var tagHtml=c.tag==="tiebreaker"?'<span class="criterion-tag tag-tiebreaker">tiebreaker</span>':c.tag==="1.5x"?'<span class="criterion-tag tag-weight">1.5× weight</span>':"";
-      return'<div class="criterion-row"><span class="criterion-label">'+c.label+tagHtml+'</span>'
-        +'<select class="criterion-select" onchange="updateCriterion(\''+seg.id+'\',\''+wf.id+'\',\''+c.key+'\',this.value)">'+opts+'</select></div>';
-    }).join("");
-
-    card.innerHTML='<div class="rubric-row" onclick="toggleDetail(\''+seg.id+'\',\''+wf.id+'\')">'
-      +'<div class="rubric-left"><span class="rubric-rank">#'+(idx+1)+'</span><span class="rubric-name">'+wf.n+'</span><span class="rubric-seg">'+seg.title+'</span></div>'
-      +'<div class="rubric-right"><span class="tier-badge '+tierClass(total)+'" id="rtier-'+seg.id+'-'+wf.id+'">'+tierLabel(total)+'</span>'
-      +'<span class="rubric-score" id="rscore-'+seg.id+'-'+wf.id+'" style="color:'+scoreColor(total)+'">'+total.toFixed(1)+'</span>'
-      +'<span class="rubric-chevron" id="rchev-'+seg.id+'-'+wf.id+'">▼</span></div></div>'
-      +'<div class="rubric-detail" id="rdetail-'+seg.id+'-'+wf.id+'">'+cRows
-      +'<div class="score-bar-wrap"><span class="score-total-label">Total score</span>'
-      +'<div class="score-bar"><div class="score-bar-fill" id="rbar-'+seg.id+'-'+wf.id+'" style="width:'+pct+'%;background:'+scoreColor(total)+';"></div></div>'
-      +'<span class="score-total-val" id="rtotal-'+seg.id+'-'+wf.id+'" style="color:'+scoreColor(total)+'">'+total.toFixed(1)+' / '+MAX_RAW+'</span></div></div>';
-    el.appendChild(card);
-  });
-}
-
-function toggleDetail(segId,wfId){
-  var d=document.getElementById("rdetail-"+segId+"-"+wfId);
-  var c=document.getElementById("rchev-"+segId+"-"+wfId);
-  var open=d.classList.toggle("open");
-  if(open){c.classList.add("open");}else{c.classList.remove("open");}
-}
-
-function updateCriterion(segId,wfId,key,val){
-  var scores=loadRbScores(segId,wfId);
-  scores[key]=parseInt(val);
-  saveRbScores(segId,wfId,scores);
-  var total=calcTotal(scores);
-  var pct=(total/MAX_RAW*100).toFixed(0);
-  var color=scoreColor(total);
-  var sc=document.getElementById("rscore-"+segId+"-"+wfId);
-  var ti=document.getElementById("rtier-"+segId+"-"+wfId);
-  var bar=document.getElementById("rbar-"+segId+"-"+wfId);
-  var tot=document.getElementById("rtotal-"+segId+"-"+wfId);
-  if(sc){sc.textContent=total.toFixed(1);sc.style.color=color;}
-  if(ti){ti.className="tier-badge "+tierClass(total);ti.textContent=tierLabel(total);}
-  if(bar){bar.style.width=pct+"%";bar.style.background=color;}
-  if(tot){tot.textContent=total.toFixed(1)+" / "+MAX_RAW;tot.style.color=color;}
-}
-
+// ── TEAM ──────────────────────────────────────────────────────────────────────
 function renderTeam(){
   var phases=[
     {
@@ -882,13 +829,20 @@ function renderTeam(){
     '</div>';
   }).join('')+'</div>';
 }
+
+// ── PRIORITIZED WORKFLOWS ─────────────────────────────────────────────────────
 var DEFAULT_PWORKFLOWS=[
-  {id:"pw1",title:"CONPLAN / OPLAN",desc:"End-to-end contingency and operation plan development workflow — from commander's intent and mission analysis through course of action development, wargaming, and final plan production. Targets CCMDs and Joint Staff where Onebrief can become the definitive planning tool for the most consequential operational documents a command produces.",quarter:"Q1",squad:"",crSme:""},
-  {id:"pw2",title:"Tactical — Full MDMP",desc:"Complete Military Decision Making Process execution at the Corps and Division level — covering receipt of mission through orders production and dissemination. Validates Onebrief as the end-to-end planning platform for Army and USMC tactical headquarters, reducing dependence on PowerPoint and disconnected tools across staff sections.",quarter:"Q2",squad:"",crSme:""},
-  {id:"pw3",title:"Joint Exercise Planning Cycle",desc:"Full GIE / CPX planning and execution workflow — from initial planning conferences through Master Scenario Events List (MSEL) development, scripting, execution, and after-action. High replication value across CCMD, Service Component, and JTF accounts where exercise planning is a recurring high-effort process.",quarter:"Q2",squad:"",crSme:""}
+  {id:"pw1",title:"Tactical — Full MDMP",desc:"Complete Military Decision Making Process execution at the Corps and Division level — covering receipt of mission through orders production and dissemination. Validates Onebrief as the end-to-end planning platform for Army and USMC tactical headquarters, reducing dependence on PowerPoint and disconnected tools across staff sections.",quarter:"Q4",squad:"",crSme:"",gapUrl:""},
+  {id:"pw2",title:"CONPLAN / OPLAN",desc:"End-to-end contingency and operation plan development workflow — from commander's intent and mission analysis through course of action development, wargaming, and final plan production. Targets CCMDs and Joint Staff where Onebrief can become the definitive planning tool for the most consequential operational documents a command produces.",quarter:"Q1",squad:"",crSme:"",gapUrl:""},
+  {id:"pw3",title:"Joint Exercise Planning Cycle",desc:"Full GIE / CPX planning and execution workflow — from initial planning conferences through Master Scenario Events List (MSEL) development, scripting, execution, and after-action. High replication value across CCMD, Service Component, and JTF accounts where exercise planning is a recurring high-effort process.",quarter:"Q2",squad:"",crSme:"",gapUrl:""},
+  {id:"pw4",title:"Joint Force Targeting",desc:"Targeting cycle workflow spanning target development, vetting, validation, and nomination through execution and assessment. Relevant across Joint Staff and CCMD targeting boards where the process currently spans multiple disconnected tools.",quarter:"TBD",squad:"",crSme:"",gapUrl:""},
+  {id:"pw5",title:"Global Force Management Module",desc:"Workflow supporting force allocation, apportionment, and assignment decisions across combatant commands. Surfaces where Onebrief could support the GFM process end to end rather than a single planning artifact.",quarter:"TBD",squad:"",crSme:"",gapUrl:""},
+  {id:"pw6",title:"Force Flow / TPFDD",desc:"Time-Phased Force and Deployment Data workflow, covering sourcing, validation, and flow of forces into an operation. A recurring gap area raised across strategic plans discussions at Joint Staff.",quarter:"TBD",squad:"",crSme:"",gapUrl:""},
+  {id:"pw7",title:"Assessment Management Module",desc:"Workflow for tracking measures of performance and effectiveness against a plan or campaign, and rolling those assessments up for senior leader review.",quarter:"TBD",squad:"",crSme:"",gapUrl:""}
 ];
 var pworkflows=lsGet('forge_pworkflows',DEFAULT_PWORKFLOWS);
 var editingPwId=null;
+var pwGapEditing={};
 
 function renderPw(){
   var el=document.getElementById('pw-list');
@@ -897,19 +851,60 @@ function renderPw(){
     return;
   }
   el.innerHTML=pworkflows.map(function(w){
+    var quarterClass=w.quarter==='Q4'?'pw-chip pw-q-active':'pw-chip pw-q';
     return '<div class="pw-card" onclick="openEditPw(\''+w.id+'\')">'+
       '<div class="pw-head">'+
         '<div class="pw-title">'+w.title+'</div>'+
         '<div class="pw-meta">'+
-          (w.quarter&&w.quarter!=='TBD'?'<span class="pw-chip pw-q">'+w.quarter+'</span>':'')+
+          (w.quarter&&w.quarter!=='TBD'?'<span class="'+quarterClass+'">'+w.quarter+'</span>':'')+
           (w.squad?'<span class="pw-chip pw-squad">'+w.squad+'</span>':'')+
           (w.crSme?'<span class="pw-chip pw-cr">'+w.crSme+'</span>':'')+
-          '<button class="pw-reforge" onclick="event.stopPropagation();" title="Reforge data pull — coming soon">Reforge pull</button>'+
+          renderGapControl(w)+
         '</div>'+
       '</div>'+
       (w.desc?'<div class="pw-body">'+w.desc+'</div>':'')+
     '</div>';
   }).join('');
+}
+
+function renderGapControl(w){
+  if(pwGapEditing[w.id]){
+    var val=w.gapUrl?w.gapUrl.replace(/"/g,'&quot;'):'';
+    return '<span onclick="event.stopPropagation()">'+
+      '<input class="pw-gap-input" id="pw-gap-input-'+w.id+'" placeholder="Paste Notion URL" value="'+val+'">'+
+      '<button class="pw-gap-save" onclick="savePwGap(\''+w.id+'\')">Save</button>'+
+      '<button class="pw-gap-cancel" onclick="cancelPwGap(\''+w.id+'\')">Cancel</button>'+
+    '</span>';
+  }
+  if(w.gapUrl){
+    return '<span onclick="event.stopPropagation()">'+
+      '<a class="pw-gap-btn" href="'+w.gapUrl+'" target="_blank" rel="noopener">Gap Analysis ↗</a>'+
+      '<button class="pw-gap-edit-icon" onclick="togglePwGapEdit(\''+w.id+'\')" title="Edit link">✎</button>'+
+    '</span>';
+  }
+  return '<button class="pw-gap-btn" onclick="event.stopPropagation();togglePwGapEdit(\''+w.id+'\')">+ Gap Analysis</button>';
+}
+
+function togglePwGapEdit(id){
+  pwGapEditing[id]=true;
+  renderPw();
+  var inp=document.getElementById('pw-gap-input-'+id);
+  if(inp)inp.focus();
+}
+function cancelPwGap(id){
+  delete pwGapEditing[id];
+  renderPw();
+}
+function savePwGap(id){
+  var inp=document.getElementById('pw-gap-input-'+id);
+  var val=inp.value.trim();
+  pworkflows=pworkflows.map(function(w){
+    if(w.id===id){w.gapUrl=val;}
+    return w;
+  });
+  lsSet('forge_pworkflows',pworkflows);
+  delete pwGapEditing[id];
+  renderPw();
 }
 
 function openPwModal(){
@@ -936,7 +931,8 @@ function openEditPw(id){
   document.getElementById('pw-modal').classList.add('open');
 }
 function savePw(){
-  var w={id:editingPwId||uid(),title:document.getElementById('pw-title-input').value.trim(),desc:document.getElementById('pw-desc-input').value.trim(),quarter:document.getElementById('pw-quarter').value,squad:document.getElementById('pw-squad').value.trim(),crSme:document.getElementById('pw-cr-sme').value.trim()};
+  var existing=editingPwId?pworkflows.find(function(x){return x.id===editingPwId;}):null;
+  var w={id:editingPwId||uid(),title:document.getElementById('pw-title-input').value.trim(),desc:document.getElementById('pw-desc-input').value.trim(),quarter:document.getElementById('pw-quarter').value,squad:document.getElementById('pw-squad').value.trim(),crSme:document.getElementById('pw-cr-sme').value.trim(),gapUrl:existing?existing.gapUrl:''};
   if(!w.title)return;
   if(editingPwId){pworkflows=pworkflows.map(function(x){return x.id===editingPwId?w:x;});}
   else{pworkflows.push(w);}
@@ -949,6 +945,8 @@ function deletePw(){
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 initMission();
+initEditable('howItWorks');
+initEditable('productVision');
 renderCalendar();
 renderTeam();
 renderSegments();
