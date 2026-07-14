@@ -141,6 +141,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .outcome-icon{font-size:13px;flex-shrink:0;margin-top:1px;}
 .outcome-text{font-size:11px;color:var(--text);line-height:1.6;}
 .outcome-label{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-right:6px;}
+.phase-edit-input{width:100%;font-size:11px;padding:4px 6px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;}
+.phase-edit-textarea{width:100%;font-size:11px;line-height:1.6;padding:4px 6px;border-radius:6px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;resize:vertical;}
+.phase-edit-actions{margin-top:4px;}
+.phase-edit-btn{font-size:9px;padding:2px 8px;border-radius:14px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;margin-right:4px;}
+.phase-edit-save{font-size:9px;padding:2px 8px;border-radius:14px;border:none;background:#378ADD;color:#fff;cursor:pointer;margin-right:4px;}
 @media(max-width:600px){.phase-body{grid-template-columns:1fr;}.phase-col{border-right:none;border-bottom:0.5px solid var(--border);}.phase-col:last-child{border-bottom:none;}}
 .pw-desc{font-size:12px;color:var(--text2);line-height:1.7;background:var(--bg2);border-radius:var(--radius);border:0.5px solid var(--border);padding:.9rem 1rem;margin-bottom:1.25rem;}
 .pw-card{border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:1rem;background:var(--bg);}
@@ -453,6 +458,8 @@ function parseMoney(s){return parseFloat((s||"").toString().replace(/[^0-9.]/g,"
 function fmtMoney(n){if(n===0)return"—";var s=n.toFixed(3).replace(/0+$/,"").replace(/\.$/,"");return"$"+s+"M";}
 function flash(id){var el=document.getElementById(id);if(!el)return;el.style.opacity="1";setTimeout(function(){el.style.opacity="0";},2000);}
 function closeModal(id){document.getElementById(id).classList.remove("open");}
+function escAttr(s){return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function escHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 document.querySelectorAll(".modal-backdrop").forEach(function(m){
   m.addEventListener("click",function(e){if(e.target===m)m.classList.remove("open");});
@@ -549,7 +556,7 @@ function saveEdit(name){
 
 // ── CALENDAR ──────────────────────────────────────────────────────────────────
 var CAL_MONTHS=[
-  {label:"Jun 2026",now:true,prefix:"2026-06"},{label:"Jul 2026",prefix:"2026-07"},
+  {label:"Jun 2026",prefix:"2026-06"},{label:"Jul 2026",now:true,prefix:"2026-07"},
   {label:"Aug 2026",prefix:"2026-08"},{label:"Sep 2026",prefix:"2026-09"},
   {label:"Oct 2026",prefix:"2026-10"},{label:"Nov 2026",prefix:"2026-11"},
   {label:"Dec 2026",prefix:"2026-12"}
@@ -774,47 +781,84 @@ function deleteWorkflow(){
 }
 
 // ── TEAM ──────────────────────────────────────────────────────────────────────
-function renderTeam(){
-  var phases=[
-    {
-      num:"1",cls:"ph1",
-      title:"Strategic Evaluation",
-      timing:"Week 2 of each quarter",
-      prereq:["Each customer segment provides inputs on their top four workflows — completed in week 1 of the QTR"],
-      team:["Forge Team","Head of CR","Head of Sales","Heads of Product"],
-      outcome:"The team completes the workflow scoring rubric across all segments, evaluating strategic value, account impact, cross-account replication, and roadmap alignment to identify the top priority workflows for the quarter."
-    },
-    {
-      num:"2",cls:"ph2",
-      title:"Quarterly Sync",
-      timing:"Week 4 of each quarter",
-      prereq:["Heads of Product determine squad assignments and resource allocation","CR SMEs appropriate for each effort are identified and begin their product ops rotation"],
-      team:["Forge Team","Heads of Product","Squad Leads","CR SMEs"],
-      outcome:"Squads refine the scope of work for the three priority workflows and establish a clear plan of action. CR SMEs are aligned to each squad and their rotation begins."
-    },
-    {
-      num:"3",cls:"ph3",
-      title:"Development",
-      timing:"Months 2–3 of the quarter",
-      prereq:["Quarterly Sync complete","Squad assignments confirmed","CR SME rotations active"],
-      team:["Product Squads","CR SMEs (Prod Ops rotation)"],
-      outcome:"Product build is completed and shipped. CR SMEs support squads throughout development, providing operational context, reviewing builds against real workflow requirements, and validating output before release."
-    },
-    {
-      num:"4",cls:"ph4",
-      title:"Workflow Validation & Templates",
-      timing:"Ongoing",
-      prereq:["New capability shipped by squads","Account teams notified and enabled"],
-      team:["Account Teams","Global Delivery Team (GDT)"],
-      outcome:"Accounts integrate the new capability and codify the workflow. GDT develops the Smartbook entry, links the new templates to the catalogue, and deploys them in upcoming pilots and onboarding to accelerate time to value."
-    }
-  ];
+var DEFAULT_PHASES=[
+  {id:"p1",num:"1",cls:"ph1",title:"Opportunity Review",timing:"Week 2 of each quarter",
+   prereq:["Each customer segment provides inputs on their top four workflows — completed in week 1 of the QTR"],
+   team:["Forge Team","Customer Segment Leads"],
+   outcome:"The Forge team and customer segment leads review the top workflow opportunities submitted by each segment, evaluating strategic value, account impact, and cross-account replication to narrow the list down to the strongest candidates for the quarter."},
+  {id:"p2",num:"2",cls:"ph2",title:"Strategic Evaluation",timing:"Week 4 of each quarter",
+   prereq:["Opportunity Review complete","Candidate workflows narrowed down and ready for roadmap consideration"],
+   team:["Heads of Product"],
+   outcome:"Heads of Product evaluate the narrowed list of workflows against roadmap capacity and strategic fit, deciding which efforts move forward and identifying the Product lead for each."},
+  {id:"p3",num:"3",cls:"ph3",title:"Sprint",timing:"Ongoing",
+   prereq:["Strategic Evaluation complete","Product lead identified for the effort","CR SME identified and available"],
+   team:["CR SMEs","Product Lead for the Effort"],
+   outcome:"CR SMEs and the Product lead spend an intensive week framing requirements and kicking off the build together, translating operational context directly into the early stages of development."},
+  {id:"p4",num:"4",cls:"ph4",title:"Smartbook Integration",timing:"Ongoing",
+   prereq:["New capability shipped from the Sprint","Account teams notified and enabled"],
+   team:["CR SMEs","Global Delivery Team (GDT)"],
+   outcome:"The same CR SMEs work with GDT to codify the new capability into the Smartbook, linking new templates to the catalogue and deploying them in upcoming pilots and onboarding to accelerate time to value."}
+];
+var phasesData=lsGet('forge_phases',DEFAULT_PHASES);
+var phaseEditing=null; // {pid:'p1', field:'timing'|'prereq'|'outcome'}
 
+function startPhaseEdit(pid,field){
+  phaseEditing={pid:pid,field:field};
+  renderTeam();
+  var input=document.getElementById('ph-'+pid+'-'+field+'-input');
+  if(input)input.focus();
+}
+function cancelPhaseEdit(){
+  phaseEditing=null;
+  renderTeam();
+}
+function savePhaseEdit(pid,field){
+  var input=document.getElementById('ph-'+pid+'-'+field+'-input');
+  if(!input)return;
+  var val=input.value;
+  var phase=phasesData.find(function(p){return p.id===pid;});
+  if(!phase)return;
+  if(field==='prereq'){
+    phase.prereq=val.split('\n').map(function(s){return s.trim();}).filter(function(s){return s.length>0;});
+  }else{
+    phase[field]=val.trim();
+  }
+  lsSet('forge_phases',phasesData);
+  phaseEditing=null;
+  renderTeam();
+}
+
+function renderTeam(){
   var el=document.getElementById('team-phases');
   el.innerHTML='<div class="section-label" style="margin-bottom:.75rem;">Forge operating rhythm — quarterly phases</div><div class="phase-grid">'+
-  phases.map(function(p){
+  phasesData.map(function(p){
     var teamPills=p.team.map(function(t){return'<span class="team-pill">'+t+'</span>';}).join('');
-    var prereqItems=p.prereq.map(function(r){return'<div class="prereq-item">'+r+'</div>';}).join('');
+
+    var timingEditing=phaseEditing&&phaseEditing.pid===p.id&&phaseEditing.field==='timing';
+    var prereqEditing=phaseEditing&&phaseEditing.pid===p.id&&phaseEditing.field==='prereq';
+    var outcomeEditing=phaseEditing&&phaseEditing.pid===p.id&&phaseEditing.field==='outcome';
+
+    var timingBlock=timingEditing
+      ?'<input class="phase-edit-input" id="ph-'+p.id+'-timing-input" value="'+escAttr(p.timing)+'">'
+        +'<div class="phase-edit-actions"><button class="phase-edit-save" onclick="savePhaseEdit(\''+p.id+'\',\'timing\')">Save</button>'
+        +'<button class="phase-edit-btn" onclick="cancelPhaseEdit()">Cancel</button></div>'
+      :'<div class="phase-col-body" style="color:var(--text2);">'+p.timing+'</div>'
+        +'<div class="phase-edit-actions"><button class="phase-edit-btn" onclick="startPhaseEdit(\''+p.id+'\',\'timing\')">Edit</button></div>';
+
+    var prereqBlock=prereqEditing
+      ?'<textarea class="phase-edit-textarea" id="ph-'+p.id+'-prereq-input" rows="4">'+escHtml(p.prereq.join('\n'))+'</textarea>'
+        +'<div class="phase-edit-actions"><button class="phase-edit-save" onclick="savePhaseEdit(\''+p.id+'\',\'prereq\')">Save</button>'
+        +'<button class="phase-edit-btn" onclick="cancelPhaseEdit()">Cancel</button></div>'
+      :'<div class="phase-col-body">'+p.prereq.map(function(r){return'<div class="prereq-item">'+r+'</div>';}).join('')+'</div>'
+        +'<div class="phase-edit-actions"><button class="phase-edit-btn" onclick="startPhaseEdit(\''+p.id+'\',\'prereq\')">Edit</button></div>';
+
+    var outcomeBlock=outcomeEditing
+      ?'<textarea class="phase-edit-textarea" id="ph-'+p.id+'-outcome-input" rows="3" style="width:100%;">'+escHtml(p.outcome)+'</textarea>'
+        +'<div class="phase-edit-actions"><button class="phase-edit-save" onclick="savePhaseEdit(\''+p.id+'\',\'outcome\')">Save</button>'
+        +'<button class="phase-edit-btn" onclick="cancelPhaseEdit()">Cancel</button></div>'
+      :'<span class="outcome-label">Outcome</span>'+p.outcome
+        +'<div class="phase-edit-actions"><button class="phase-edit-btn" onclick="startPhaseEdit(\''+p.id+'\',\'outcome\')">Edit</button></div>';
+
     return'<div class="phase-card">'+
       '<div class="phase-header">'+
         '<div class="phase-num '+p.cls+'">'+p.num+'</div>'+
@@ -822,10 +866,10 @@ function renderTeam(){
       '</div>'+
       '<div class="phase-body">'+
         '<div class="phase-col"><div class="phase-col-label">Team</div><div class="phase-col-body">'+teamPills+'</div></div>'+
-        '<div class="phase-col"><div class="phase-col-label">Prerequisites</div><div class="phase-col-body">'+prereqItems+'</div></div>'+
-        '<div class="phase-col"><div class="phase-col-label">Timing</div><div class="phase-col-body" style="color:var(--text2);">'+p.timing+'</div></div>'+
+        '<div class="phase-col"><div class="phase-col-label">Prerequisites</div>'+prereqBlock+'</div>'+
+        '<div class="phase-col"><div class="phase-col-label">Timing</div>'+timingBlock+'</div>'+
       '</div>'+
-      '<div class="outcome-box"><span class="outcome-icon">✓</span><div class="outcome-text"><span class="outcome-label">Outcome</span>'+p.outcome+'</div></div>'+
+      '<div class="outcome-box"><span class="outcome-icon">✓</span><div class="outcome-text" style="flex:1;">'+outcomeBlock+'</div></div>'+
     '</div>';
   }).join('')+'</div>';
 }
